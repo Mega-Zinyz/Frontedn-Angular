@@ -32,15 +32,15 @@ export class BackEndHeaderComponent implements OnInit {
             // Pastikan apiUrl diakhiri dengan '/' sebelum menambahkan path
             const baseUrl = environment.apiUrl.endsWith('/') ? environment.apiUrl : `${environment.apiUrl}/`;
             
-            // Cek apakah profil_url sudah memiliki '/profil_img/', jika belum baru tambahkan
-            if (!this.user.profil_url.startsWith('profil_img/')) {
-              this.user.profil_url = `${baseUrl}profil_img/${this.user.profil_url}`;
-            } else {
-              // Jika sudah ada, gunakan profil_url yang sudah ada
+            // Jika profil_url sudah memiliki '/profil_img/', pastikan kita tidak menambahkannya lagi
+            if (this.user.profil_url.startsWith('profil_img/')) {
               this.user.profil_url = `${baseUrl}${this.user.profil_url}`;
+            } else {
+              this.user.profil_url = `${baseUrl}profil_img/${this.user.profil_url}`;
             }
           }
-        }               
+        }
+           
   
         console.log('Processed Profile URL:', this.user?.profil_url);  // Debug URL
   
