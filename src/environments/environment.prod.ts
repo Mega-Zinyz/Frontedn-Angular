@@ -1,5 +1,5 @@
 export const environment = {
     production: true,
-    apiUrl: 'https://backend-nodejs.railway.internal', // Change this to your production API URL
+    apiUrl: 'http://backend-nodejs.railway.internal', // Change this to your production API URL
   };
   
