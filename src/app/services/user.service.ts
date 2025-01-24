@@ -9,7 +9,7 @@ import { environment } from '../../environments/environment';
   providedIn: 'root',
 })
 export class UserService {
-  private profileUrl = `${environment.apiUrl}/profile`;
+  private profileUrl = `${environment.apiUrl}/api/profile`;
   private userSubject = new BehaviorSubject<User | null>(null);
   user$ = this.userSubject.asObservable();
 
