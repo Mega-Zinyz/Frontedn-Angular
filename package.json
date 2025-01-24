@@ -59,7 +59,7 @@
     "@types/bootstrap": "^5.2.10",
     "@types/jasmine": "~5.1.0",
     "@types/jquery": "^3.5.32",
-    "@types/node": "^22.7.7",
+    "@types/node": "^22.10.10",
     "@types/swiper": "^5.4.3",
     "jasmine-core": "~5.2.0",
     "karma": "~6.4.0",
