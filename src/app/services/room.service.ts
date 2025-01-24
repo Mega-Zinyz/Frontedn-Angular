@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Room } from '../models/room.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RoomService {
-  private apiUrl = 'https://backend-nodejs.railway.internal/api/rooms'; // Update to your backend URL
+  private apiUrl = environment.apiUrl; // Update to your backend URL
 
   constructor(private http: HttpClient) {}
 

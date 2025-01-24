@@ -3,12 +3,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { DashboardData } from '../models/dashboard.mode'; // Impor model
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DashboardService {
-  private apiUrl = 'https://backend-nodejs.railway.internal/api/dashboard'; // Ganti dengan URL backend Anda
+  private apiUrl = environment.apiUrl; // Ganti dengan URL backend Anda
 
   constructor(private http: HttpClient) {}
 

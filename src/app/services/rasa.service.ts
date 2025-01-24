@@ -3,12 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { RasaStatusResponse } from '../models/rasa-status-response.model'; // Adjust path as needed
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RasaService {
-  private baseUrl = 'https://backend-nodejs.railway.internal/api/rasa'; // Change this to your backend port
+  private baseUrl = environment.apiUrl; // Change this to your backend port
 
   constructor(private http: HttpClient) {}
 

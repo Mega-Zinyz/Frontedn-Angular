@@ -5,12 +5,13 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Intent } from '../models/intent.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class IntentService {
-  private baseUrl = 'https://backend-nodejs.railway.internal/api/intents';
+  private baseUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
 
