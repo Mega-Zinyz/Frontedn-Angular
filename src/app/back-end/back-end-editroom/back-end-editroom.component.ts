@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RoomService } from '../../services/room.service';
 import { Room } from '../../models/room.model';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-back-end-edit-room',
@@ -38,7 +39,7 @@ export class BackEndEditRoomComponent implements OnInit {
           if (this.room.imageUrl) {
             // Ensure the imageUrl is a complete URL
             if (!this.room.imageUrl.startsWith('http')) {
-              this.room.imageUrl = `http://localhost:3000/room_img/${this.room.imageUrl}`;
+              this.room.imageUrl = `${environment.apiUrl}/room_img/${this.room.imageUrl}`;
             }
             // Append timestamp for cache busting
             this.room.imageUrl += `?v=${timestamp}`;

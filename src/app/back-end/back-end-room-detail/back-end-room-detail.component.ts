@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RoomService } from '../../services/room.service';
 import { Room } from '../../models/room.model';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-back-end-room-detail',
@@ -40,7 +41,7 @@ export class BackEndRoomDetailComponent implements OnInit {
   
           // Prepend base URL if the image URL is relative
           if (!this.room.imageUrl.startsWith('http')) {
-            this.room.imageUrl = `http://localhost:3000${this.room.imageUrl}`; // Prepend base URL if necessary
+            this.room.imageUrl = `${environment.apiUrl}${this.room.imageUrl}`; // Prepend base URL if necessary
           }
   
           // Generate timestamp to bust cache

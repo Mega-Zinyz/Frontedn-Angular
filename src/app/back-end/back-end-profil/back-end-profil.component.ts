@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/user.model';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-back-end-profil',
@@ -36,7 +37,7 @@ export class BackEndProfilComponent implements OnInit {
     );
   }
   getProfileImage(profilUrl: string | null): string {
-    return profilUrl ? `http://localhost:3000/profil_img/${profilUrl}` : 'assets/images/default-user.jpg';
+    return profilUrl ? `${environment.apiUrl}/profil_img/${profilUrl}` : 'assets/images/profile.png';
   }  
   
   editUser(no_user: string) {

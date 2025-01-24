@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/user.model';
+import { environment } from '../../../environments/environment';
 
 declare var $: any; // Import jQuery
 
@@ -40,7 +41,7 @@ export class BackEndEditUserComponent implements OnInit {
                 if (this.user.profil_url) {
                     // Ensure the profil_url is a complete URL
                     if (!this.user.profil_url.startsWith('http')) {
-                        this.user.profil_url = `http://localhost:3000/profil_img/${this.user.profil_url}`;
+                        this.user.profil_url = `${environment.apiUrl}/profil_img/${this.user.profil_url}`;
                     }
                     // Append timestamp for cache busting
                     this.user.profil_url += `?v=${timestamp}`;

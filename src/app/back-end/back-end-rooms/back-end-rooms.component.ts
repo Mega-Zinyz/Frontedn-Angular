@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { RoomService } from '../../services/room.service';
 import { Room } from '../../models/room.model';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-back-end-rooms',
@@ -28,7 +29,7 @@ export class BackEndRoomsComponent implements OnInit {
                 if (room.imageUrl) {
                     // Only append the timestamp if the URL is not complete
                     if (!room.imageUrl.startsWith('http')) {
-                        room.imageUrl = `http://localhost:3000${room.imageUrl}`; // Prepend base URL if necessary
+                        room.imageUrl = `${environment.apiUrl}/${room.imageUrl}`; // Prepend base URL if necessary
                     }
                     room.imageUrl += `?v=${timestamp}`; // Append timestamp
                 }
