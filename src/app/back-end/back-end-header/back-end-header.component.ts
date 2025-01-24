@@ -27,10 +27,13 @@ export class BackEndHeaderComponent implements OnInit {
   
         // Periksa dan proses profil_url
         if (this.user?.profil_url) {
+          // Jika profil_url tidak dimulai dengan 'http', maka tambahkan base URL
           if (!this.user.profil_url.startsWith('http')) {
-            this.user.profil_url = `${environment.apiUrl}/profil_img/${this.user.profil_url}`;
+            // Pastikan apiUrl diakhiri dengan '/' sebelum menambahkan path
+            const baseUrl = environment.apiUrl.endsWith('/') ? environment.apiUrl : `${environment.apiUrl}/`;
+            this.user.profil_url = `${baseUrl}profil_img/${this.user.profil_url}`;
           }
-        }
+        }          
   
         console.log('Processed Profile URL:', this.user?.profil_url);  // Debug URL
   
