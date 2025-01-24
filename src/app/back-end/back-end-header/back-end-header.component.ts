@@ -29,7 +29,7 @@ export class BackEndHeaderComponent implements OnInit {
         if (this.user?.profil_url) {
           if (!this.user.profil_url.startsWith('http')) {
             // Tambahkan base URL hanya jika profil_url adalah jalur relatif
-            this.user.profil_url = `${environment.apiUrl}/${this.user.profil_url}`;
+            this.user.profil_url = `${environment.apiUrl}`;
           }
         }
   
