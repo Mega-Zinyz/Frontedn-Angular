@@ -25,25 +25,24 @@ export class BackEndHeaderComponent implements OnInit {
       (user: User | null) => {
         this.user = user;
   
-        // Periksa apakah profil_url adalah URL penuh
+        // Proses profil_url
         if (this.user?.profil_url) {
           if (!this.user.profil_url.startsWith('http')) {
             // Tambahkan base URL hanya jika profil_url adalah jalur relatif
-            this.user.profil_url = `${environment.apiUrl}/profil_img/${this.user.profil_url}`;
+            this.user.profil_url = `${environment.apiUrl}/${this.user.profil_url}`;
           }
         }
   
         this.isLoading = false;
         console.log('Current User:', user);
-        console.log('Profile URL:', this.user?.profil_url);
+        console.log('Processed Profile URL:', this.user?.profil_url);
       },
       (error) => {
         this.errorMessage = 'Failed to load user data.';
         this.isLoading = false;
       }
     );
-  }
-  
+  }  
   
   logout() {
     this.authService.logout(); // Clear token and user data
