@@ -25,11 +25,12 @@ export class BackEndHeaderComponent implements OnInit {
       (user: User | null) => {
         this.user = user;
   
-        // Bentuk URL lengkap untuk gambar profil
+        // Pastikan URL lengkap dibuat dengan environment.apiUrl
         if (this.user?.profil_url && !this.user.profil_url.startsWith('http')) {
-          this.user.profil_url = `${this.user.profil_url}`;
+          this.user.profil_url = `${environment.apiUrl}/profil_img/${this.user.profil_url}`;
         }
-  
+        console.log('Updated profil_url:', this.user?.profil_url);
+
         this.isLoading = false;
         console.log('Current User:', user);
         console.log('Profile URL:', this.user?.profil_url);
