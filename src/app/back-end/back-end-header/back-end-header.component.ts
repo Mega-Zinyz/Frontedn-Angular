@@ -27,7 +27,7 @@ export class BackEndHeaderComponent implements OnInit {
   
         // Bentuk URL lengkap jika perlu
         if (this.user?.profil_url && !this.user.profil_url.startsWith('http')) {
-          this.user.profil_url = `${environment.apiUrl}/profil_img/${this.user.profil_url}`;
+          this.user.profil_url = `${this.user.profil_url}`;
         }
   
         this.isLoading = false; // Stop loading
