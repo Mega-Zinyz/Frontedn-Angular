@@ -8,7 +8,7 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class RoomService {
-  private apiUrl = environment.apiUrl || 'defaultBaseUrl';
+  private apiUrl = `${environment.apiUrl}/api/rooms`;  // Menggunakan apiUrl dari environment.ts
 
   constructor(private http: HttpClient) {}
 

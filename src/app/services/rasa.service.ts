@@ -9,7 +9,7 @@ import { environment } from '../../environments/environment';
   providedIn: 'root',
 })
 export class RasaService {
-  private baseUrl = environment.apiUrl || 'defaultBaseUrl';
+  private baseUrl = `${environment.apiUrl}/api/rasa`;  // Menggunakan apiUrl dari environment.ts
 
   constructor(private http: HttpClient) {}
 

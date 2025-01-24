@@ -11,7 +11,7 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class IntentService {
-  private baseUrl = environment.apiUrl || 'defaultBaseUrl';
+  private baseUrl = `${environment.apiUrl}/api/intents`;  // Menggunakan apiUrl dari environment.ts
 
   constructor(private http: HttpClient) {}
 

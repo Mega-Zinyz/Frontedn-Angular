@@ -9,7 +9,8 @@ import { environment } from '../../environments/environment';
   providedIn: 'root',
 })
 export class DashboardService {
-  private apiUrl = environment.apiUrl; // Ganti dengan URL backend Anda
+  private apiUrl = `${environment.apiUrl}/api/dashboard`;  // Menggunakan apiUrl dari environment.ts
+  
 
   constructor(private http: HttpClient) {}
 
