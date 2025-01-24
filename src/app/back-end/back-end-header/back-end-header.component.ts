@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../services/auth.service'; // Adjust the path as needed
-import { User } from '../../models/user.model'; // Adjust the path as needed
+import { AuthService } from '../../services/auth.service'; // Sesuaikan dengan path yang benar
+import { User } from '../../models/user.model'; // Sesuaikan dengan path yang benar
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
 
@@ -11,8 +11,8 @@ import { environment } from '../../../environments/environment';
 })
 export class BackEndHeaderComponent implements OnInit {
   user: User | null = null;
-  isLoading: boolean = false; // Add loading state
-  errorMessage: string | null = null; // Add error message
+  isLoading: boolean = false; // State loading
+  errorMessage: string | null = null; // Error message jika gagal
 
   constructor(
     private authService: AuthService,
@@ -24,28 +24,28 @@ export class BackEndHeaderComponent implements OnInit {
     this.authService.user$.subscribe(
       (user: User | null) => {
         this.user = user;
-  
-        // Proses profil_url
+
+        // Periksa dan proses profil_url
         if (this.user?.profil_url) {
+          // Jika profil_url tidak dimulai dengan 'http', maka tambahkan base URL
           if (!this.user.profil_url.startsWith('http')) {
-            // Tambahkan base URL hanya jika profil_url adalah jalur relatif
-            this.user.profil_url = `${environment.apiUrl}`;
+            this.user.profil_url = `${environment.apiUrl}/profil_img/${this.user.profil_url}`;
           }
         }
-  
+
         this.isLoading = false;
         console.log('Current User:', user);
         console.log('Processed Profile URL:', this.user?.profil_url);
       },
       (error) => {
-        this.errorMessage = 'Failed to load user data.';
+        this.errorMessage = 'Failed to load user data.'; // Error handling
         this.isLoading = false;
       }
     );
   }  
-  
+
   logout() {
-    this.authService.logout(); // Clear token and user data
-    this.router.navigate(['/back-end/login']); // Redirect to login page
+    this.authService.logout(); // Clear token dan user data
+    this.router.navigate(['/back-end/login']); // Redirect ke halaman login
   }  
 }
