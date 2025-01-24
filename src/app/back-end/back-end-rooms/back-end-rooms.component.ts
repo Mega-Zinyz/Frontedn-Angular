@@ -29,7 +29,7 @@ export class BackEndRoomsComponent implements OnInit {
                 if (room.imageUrl) {
                     // Only append the timestamp if the URL is not complete
                     if (!room.imageUrl.startsWith('http')) {
-                        room.imageUrl = `${environment.apiUrl}/${room.imageUrl}`; // Prepend base URL if necessary
+                        room.imageUrl = `${environment.apiUrl}${room.imageUrl}`; // Prepend base URL if necessary
                     }
                     room.imageUrl += `?v=${timestamp}`; // Append timestamp
                 }
