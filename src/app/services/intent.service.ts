@@ -11,7 +11,7 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class IntentService {
-  private baseUrl = environment.apiUrl;
+  private baseUrl = environment.apiUrl || 'defaultBaseUrl';
 
   constructor(private http: HttpClient) {}
 

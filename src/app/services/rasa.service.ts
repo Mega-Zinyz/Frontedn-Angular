@@ -9,7 +9,7 @@ import { environment } from '../../environments/environment';
   providedIn: 'root',
 })
 export class RasaService {
-  private baseUrl = environment.apiUrl; // Change this to your backend port
+  private baseUrl = environment.apiUrl || 'defaultBaseUrl';
 
   constructor(private http: HttpClient) {}
 

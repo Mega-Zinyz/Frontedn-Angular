@@ -10,7 +10,7 @@ import { environment } from '../../environments/environment';
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = environment.apiUrl; // Replace with your API URL
+  private apiUrl = environment.apiUrl || 'defaultBaseUrl';// Replace with your API URL
   private tokenKey = 'auth_token'; // Key for storing token
   private userKey = 'currentUser'; // Key for storing user info
   private userSubject = new BehaviorSubject<User | null>(this.getCurrentUser());

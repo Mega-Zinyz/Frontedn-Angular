@@ -8,7 +8,7 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class RoomService {
-  private apiUrl = environment.apiUrl; // Update to your backend URL
+  private apiUrl = environment.apiUrl || 'defaultBaseUrl';
 
   constructor(private http: HttpClient) {}
 
