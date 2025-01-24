@@ -1,5 +1,5 @@
 export const environment = {
     production: true,
-    apiUrl: process.env["NODE_API"], // Default fallback
+    apiUrl: 'http://backend-nodejs.railway.internal', // Change this to your production API URL
   };
   
