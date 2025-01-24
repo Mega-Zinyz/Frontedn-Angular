@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service'; // Adjust the path as needed
 import { User } from '../../models/user.model'; // Adjust the path as needed
 import { Router } from '@angular/router';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-back-end-header',
@@ -22,8 +23,14 @@ export class BackEndHeaderComponent implements OnInit {
     this.isLoading = true;
     this.authService.user$.subscribe(
       (user: User | null) => {
-        this.user = user; // Set the user object from the service
-        this.isLoading = false; // Stop loading when user data is received
+        this.user = user;
+  
+        // Bentuk URL lengkap jika perlu
+        if (this.user?.profil_url && !this.user.profil_url.startsWith('http')) {
+          this.user.profil_url = `${environment.apiUrl}/profil_img/${this.user.profil_url}`;
+        }
+  
+        this.isLoading = false; // Stop loading
         console.log('Current User:', user); // Log the user object
         console.log('Profile URL:', this.user?.profil_url); // Check the profile URL
       },
@@ -32,7 +39,7 @@ export class BackEndHeaderComponent implements OnInit {
         this.isLoading = false; // Stop loading on error
       }
     );
-  }
+  }  
   
   logout() {
     this.authService.logout(); // Clear token and user data
