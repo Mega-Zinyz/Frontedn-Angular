@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../services/auth.service'; 
-import { User } from '../../models/user.model'; 
-import { Router } from '@angular/router'; 
-import { environment } from '../../../environments/environment';
+import { AuthService } from '../../services/auth.service'; // Adjust the path as needed
+import { User } from '../../models/user.model'; // Adjust the path as needed
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-back-end-header',
@@ -11,8 +10,8 @@ import { environment } from '../../../environments/environment';
 })
 export class BackEndHeaderComponent implements OnInit {
   user: User | null = null;
-  isLoading: boolean = false; 
-  errorMessage: string | null = null;
+  isLoading: boolean = false; // Add loading state
+  errorMessage: string | null = null; // Add error message
 
   constructor(
     private authService: AuthService,
@@ -23,34 +22,20 @@ export class BackEndHeaderComponent implements OnInit {
     this.isLoading = true;
     this.authService.user$.subscribe(
       (user: User | null) => {
-        this.user = user;
-
-        if (this.user?.profil_url) {
-          // Cek apakah profil_url sudah lengkap (memulai dengan 'http')
-          if (!this.user.profil_url.startsWith('http')) {
-            // Hanya tambahkan base URL jika profil_url berupa path relatif
-            // Pastikan tidak ada duplikasi 'profil_img/'
-            if (this.user.profil_url.startsWith('profil_img/')) {
-              this.user.profil_url = `${environment.apiUrl}/${this.user.profil_url}`;
-            } else {
-              this.user.profil_url = `${environment.apiUrl}/profil_img/${this.user.profil_url}`;
-            }
-          }
-        }
-
-        this.isLoading = false;
-        console.log('Current User:', user);
-        console.log('Processed Profile URL:', this.user?.profil_url);
+        this.user = user; // Set the user object from the service
+        this.isLoading = false; // Stop loading when user data is received
+        console.log('Current User:', user); // Log the user object
+        console.log('Profile URL:', this.user?.profil_url); // Check the profile URL
       },
       (error) => {
-        this.errorMessage = 'Failed to load user data.';
-        this.isLoading = false;
+        this.errorMessage = 'Failed to load user data.'; // Set error message if needed
+        this.isLoading = false; // Stop loading on error
       }
     );
   }
-
+  
   logout() {
-    this.authService.logout(); 
-    this.router.navigate(['/back-end/login']);
-  }
+    this.authService.logout(); // Clear token and user data
+    this.router.navigate(['/back-end/login']); // Redirect to login page
+  }  
 }
