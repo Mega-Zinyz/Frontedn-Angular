@@ -10,7 +10,7 @@ import { Intent } from '../models/intent.model';
   providedIn: 'root'
 })
 export class IntentService {
-  private baseUrl = 'frontend-angular.railway.internal/api/intents';
+  private baseUrl = 'https://frontend-angular.railway.internal/api/intents';
 
   constructor(private http: HttpClient) {}
 

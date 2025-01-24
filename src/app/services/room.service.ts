@@ -7,7 +7,7 @@ import { Room } from '../models/room.model';
   providedIn: 'root'
 })
 export class RoomService {
-  private apiUrl = 'frontend-angular.railway.internal/api/rooms'; // Update to your backend URL
+  private apiUrl = 'https://frontend-angular.railway.internal/api/rooms'; // Update to your backend URL
 
   constructor(private http: HttpClient) {}
 
