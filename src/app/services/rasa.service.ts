@@ -8,7 +8,7 @@ import { RasaStatusResponse } from '../models/rasa-status-response.model'; // Ad
   providedIn: 'root',
 })
 export class RasaService {
-  private baseUrl = 'http://localhost:8080/api/rasa'; // Change this to your backend port
+  private baseUrl = 'https://backend-nodejs-main.up.railway.app/api/rasa'; // Change this to your backend port
 
   constructor(private http: HttpClient) {}
 

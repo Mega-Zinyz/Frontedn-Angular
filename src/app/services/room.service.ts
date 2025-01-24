@@ -7,7 +7,7 @@ import { Room } from '../models/room.model';
   providedIn: 'root'
 })
 export class RoomService {
-  private apiUrl = 'http://localhost:8080/api/rooms'; // Update to your backend URL
+  private apiUrl = 'https://backend-nodejs-main.up.railway.app/api/rooms'; // Update to your backend URL
 
   constructor(private http: HttpClient) {}
 

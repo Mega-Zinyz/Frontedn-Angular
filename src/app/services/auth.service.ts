@@ -9,7 +9,7 @@ import { User } from '../models/user.model';
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:8080/api/auth'; // Replace with your API URL
+  private apiUrl = 'https://backend-nodejs-main.up.railway.app/api/auth'; // Replace with your API URL
   private tokenKey = 'auth_token'; // Key for storing token
   private userKey = 'currentUser'; // Key for storing user info
   private userSubject = new BehaviorSubject<User | null>(this.getCurrentUser());

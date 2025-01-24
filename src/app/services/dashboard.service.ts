@@ -8,7 +8,7 @@ import { DashboardData } from '../models/dashboard.mode'; // Impor model
   providedIn: 'root',
 })
 export class DashboardService {
-  private apiUrl = 'http://localhost:8080/api/dashboard'; // Ganti dengan URL backend Anda
+  private apiUrl = 'https://backend-nodejs-main.up.railway.app/api/dashboard'; // Ganti dengan URL backend Anda
 
   constructor(private http: HttpClient) {}
 
