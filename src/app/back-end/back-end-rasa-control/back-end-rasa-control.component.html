@@ -1,0 +1,57 @@
+<div class="wrapper d-flex flex-column min-vh-100">
+  <div class="d-flex flex-grow-1">
+    <app-back-end-navbar></app-back-end-navbar>
+
+    <div class="content-wrapper flex-grow-1 d-flex flex-column">
+      <app-back-end-header></app-back-end-header>
+
+      <div class="rasa-control p-4">
+        <h2 class="mb-4">Rasa Server Control</h2>
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Server Status</h5>
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <p class="card-text" 
+                 [ngClass]="{
+                    'text-success': rasaServerState === 'running', 
+                    'text-warning': rasaServerState === 'starting', 
+                    'text-danger': rasaServerState === 'stopped',
+                    'text-secondary': rasaServerState === 'idle'
+                 }">
+                Rasa Server is {{ rasaServerState === 'starting' ? 'Starting...' : (rasaServerState === 'running' ? 'Running' : (rasaServerState === 'idle' ? 'Idle' : 'Stopped')) }}
+              </p>
+              <div>
+                <button class="btn btn-success me-2" (click)="startRasa()" [disabled]="rasaServerState === 'starting' || rasaServerState === 'running'">Start Rasa</button>
+                <button class="btn btn-danger me-2" (click)="stopRasa()" [disabled]="rasaServerState === 'stopped'">Stop Rasa</button>
+                <button class="btn btn-warning" (click)="restartRasa()" [disabled]="rasaServerState !== 'running'">Restart Rasa</button>
+              </div>
+            </div>
+            <!-- Optional loading spinner -->
+            <div *ngIf="rasaServerState === 'starting'" class="spinner-border" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="terminal-area mt-4 d-flex flex-column mx-auto" style="max-width: 1620px;">
+  
+          <!-- Rasa Logs -->
+          <div class="log-terminal card mb-4">
+            <h3 class="card-header">Rasa Logs</h3>
+            <div class="card-body" #rasaLogContainer style="overflow-y: auto; max-height: 300px;">
+              <pre style="white-space: pre-wrap;">{{ rasaLogs }}</pre>
+            </div>
+          </div>
+        
+          <!-- Second Logs -->
+          <div class="log-terminal card">
+            <h3 class="card-header">Second Logs</h3>
+            <div class="card-body" #secondLogContainer style="overflow-y: auto; max-height: 300px;">
+              <pre style="white-space: pre-wrap;">{{ secondLogs }}</pre>
+            </div>
+          </div>    
+        </div>        
+      <app-back-end-footer></app-back-end-footer>
+    </div>
+  </div>
+</div>

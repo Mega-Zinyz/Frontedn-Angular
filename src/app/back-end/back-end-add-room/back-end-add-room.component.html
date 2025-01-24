@@ -1,0 +1,81 @@
+<div class="wrapper d-flex flex-column min-vh-100">
+    <div class="d-flex flex-grow-1">
+        <app-back-end-navbar></app-back-end-navbar>
+
+        <div class="content-wrapper flex-grow-1 d-flex flex-column">
+            <app-back-end-header></app-back-end-header>
+
+            <div class="container-wrapper mt-4 flex-grow-1 border-container">
+                <h2>Create a New Room</h2>
+                <form #roomForm="ngForm" (ngSubmit)="createRoom()">
+                    <div class="form-group mb-2">
+                        <label for="name" class="col-form-label">Room Name</label>
+                        <input 
+                            id="name" 
+                            type="text" 
+                            class="form-control form-control-sm" 
+                            [(ngModel)]="newRoom.name" 
+                            name="name"
+                            #roomName="ngModel"
+                            placeholder="Enter room name" 
+                            required
+                        />
+                        <div *ngIf="roomName.invalid && (roomName.dirty || roomName.touched)" class="text-danger">
+                            Room name is required.
+                        </div>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label for="description" class="col-form-label">Room Description</label>
+                        <textarea 
+                            id="description" 
+                            class="form-control form-control-sm" 
+                            [(ngModel)]="newRoom.description" 
+                            name="description"  
+                            #roomDescription="ngModel"  
+                            placeholder="Enter room description" 
+                            required
+                        ></textarea>
+                        <div *ngIf="roomDescription.invalid && (roomDescription.dirty || roomDescription.touched)" class="text-danger">
+                            Room description is required.
+                        </div>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label for="image" class="col-form-label">Room Image</label>
+                        <input 
+                            id="image" 
+                            type="file" 
+                            class="form-control form-control-sm" 
+                            (change)="onFileSelected($event)" 
+                            accept="image/*"
+                        />
+                    </div>
+                    <div class="mt-3">
+                        <button type="button" class="btn btn-secondary me-2" (click)="router.navigate(['/back-end/rooms'])">Close</button>
+                        <button type="submit" class="btn btn-primary" [disabled]="loading || roomForm.invalid">
+                            <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            Create Room
+                        </button>
+                    </div>
+                </form>
+            </div>
+                <!-- Success Modal -->
+                <div class="modal fade modal-fullscreen" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="successModalLabel">Room Created</h5>
+                                <button type="button" class="btn-close" (click)="closeModal()" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                The room has been created successfully!
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" (click)="navigateToRooms()">Go to Rooms</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <app-back-end-footer></app-back-end-footer>
+        </div>
+    </div>
+</div>

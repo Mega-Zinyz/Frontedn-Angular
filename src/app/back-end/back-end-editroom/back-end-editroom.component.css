@@ -1,0 +1,6 @@
+.fixed-size-image {
+    width: 1200px; /* Set your desired width */
+    height: 700px; /* Set your desired height */
+    object-fit: cover; /* Ensures the image covers the dimensions without distortion */
+    border-radius: 8px; /* Optional: adds rounded corners */
+}

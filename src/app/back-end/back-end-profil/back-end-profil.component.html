@@ -1,0 +1,55 @@
+<div class="wrapper d-flex flex-column min-vh-100">
+    <div class="d-flex flex-grow-1">
+        <app-back-end-navbar></app-back-end-navbar>
+
+        <div class="content-wrapper flex-grow-1 d-flex flex-column p-3">
+            <app-back-end-header></app-back-end-header>
+
+            <div class="card shadow">
+                <div class="card-header">
+                    <h3 class="card-title">User Accounts</h3>
+                </div>
+
+                <div class="card-body">
+                    <button class="btn btn-success mb-3" (click)="createUser()">Create User</button>
+
+                    <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+
+                    <table class="table table-hover table-striped table-bordered mb-0">
+                        <thead>
+                            <tr>
+                                <th style="width: 5%">User ID</th>
+                                <th style="width: 35%">Username</th>
+                                <th style="width: 35%">Profile Image</th>
+                                <th style="width: 25%">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let user of users; let i = index">
+                                <td>{{ user.no_user }}</td>
+                                <td>{{ user.username }}</td>
+                                <td>
+                                    <img 
+                                      [src]="getProfileImage(user.profil_url)" 
+                                      alt="User Image" 
+                                      class="img-thumbnail rounded-circle" 
+                                      style="width: 100px; height: 100px; object-fit: cover;">
+                                  </td>                                                              
+                                <td>
+                                    <button class="btn btn-primary btn-sm me-1" (click)="editUser(user.no_user)">Edit</button>
+                                    <button class="btn btn-danger btn-sm" (click)="deleteUser(user)">Delete</button>
+                                </td>                                    
+                            </tr>
+                            <tr *ngIf="!users.length && !isLoading">
+                                <td colspan="5" class="text-center text-danger">No users found.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                </div>
+            </div>
+
+            <app-back-end-footer></app-back-end-footer>
+        </div>
+    </div>
+</div>

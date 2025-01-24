@@ -1,0 +1,30 @@
+<div class="chatbot-container" *ngIf="!isMinimized">
+    <div class="chat-header" (click)="toggleChat()">
+        Chatbot
+        <span class="toggle-icon">{{ isMinimized ? '▶' : '▼' }}</span> <!-- Change icon based on state -->
+    </div>
+    <div class="chat-messages" #chatMessages (scroll)="onScroll()">
+        <div *ngFor="let message of messages" class="message" 
+            [ngClass]="{'user-message': message.from === 'user', 'bot-message': message.from === 'bot'}">
+            <div [innerHTML]="message.safeText"></div>
+            <img *ngIf="message.imageUrl" [src]="message.imageUrl" alt="Gambar" style="max-width: 100%; height: auto;" />
+        </div>
+        <div *ngIf="isTyping" class="typing-indicator"></div>
+    </div>
+    
+    <div class="chat-input" *ngIf="!isMinimized">
+        <input 
+            type="text" 
+            class="input-field" 
+            [(ngModel)]="userInput" 
+            placeholder="Type your message here..." 
+            (keypress)="onKeyPress($event)"
+        />
+        <button class="send-button" (click)="sendMessage()">Send</button>
+    </div>
+</div>
+
+<!-- Minimized State -->
+<div class="minimized-chatbot" *ngIf="isMinimized" (click)="toggleChat()">
+    <i class="bi bi-chat-dots"></i> <!-- Use a chat icon from Bootstrap Icons -->
+</div>

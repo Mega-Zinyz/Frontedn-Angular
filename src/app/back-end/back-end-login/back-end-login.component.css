@@ -1,0 +1,173 @@
+*,
+*:before,
+*:after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #080710; /* Dark background for the body */
+  color: #ffffff; /* Default text color for visibility */
+  height: 100vh; /* Full height for the viewport */
+  display: flex; /* Flexbox for centering */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  overflow: hidden; /* Prevent overflow from background shapes */
+}
+
+/* Drop animation */
+@keyframes dropIn {
+  0% {
+    transform: translateY(-100vh); /* Start above the viewport */
+    opacity: 0; /* Invisible at the start */
+  }
+  70% {
+    opacity: 1; /* Fade in while dropping */
+  }
+  100% {
+    transform: translateY(0); /* End at original position */
+  }
+}
+
+.background {
+  width: 100%; /* Full width for background */
+  height: 100%; /* Full height for background */
+  position: absolute;
+  overflow: hidden; /* Prevent shapes from overflowing */
+}
+
+.background .shape {
+  height: 150px; /* Smaller shape size */
+  width: 150px; /* Smaller shape size */
+  position: absolute;
+  border-radius: 50%;
+  animation: dropIn 1s ease forwards; /* Add drop animation */
+}
+
+.shape1 {
+  background: linear-gradient(#1845ad, #23a2f6);
+  left: 10%; /* Position on the left side */
+  top: 50px; /* Start above viewport */
+  animation-delay: 0s; /* No delay for the first shape */
+}
+.shape2 {
+  background: linear-gradient(#2c7587, #7023f6);
+  left: 20%; /* Position on the left side */
+  top: 350px; /* Start above viewport */
+  animation-delay: 0.3s; /* No delay for the first shape */
+}
+
+.shape3 {
+  background: linear-gradient(to right, #ff512f, #f09819);
+  left: 70%; /* Position on the right side */
+  top: 100px; /* Start above viewport */
+  animation-delay: 0.6s; /* Delay for the second shape */
+}
+
+.shape4 {
+  background: linear-gradient(#ffafbd, #ffc3a0);
+  left: 80%; /* Centered */
+  top: 500px; /* Start above viewport */
+  animation-delay: 0.5s; /* Delay for the third shape */
+}
+
+.shape5 {
+  background: linear-gradient(#85e3ff, #a3e7ff);
+  left: 50%; /* Position on the left side */
+  top: 400px; /* Start above viewport */
+  animation-delay: 2.5s; /* Delay for the fourth shape */
+}
+.shape6 {
+  background: linear-gradient(#28903d, #dcd249);
+  left: 65%; /* Position on the left side */
+  top: 400px; /* Start above viewport */
+  animation-delay: 4.5s; /* Delay for the fourth shape */
+}
+.shape7 {
+  background: linear-gradient(#e785ff, #3a829d);
+  left: 40%; /* Position on the left side */
+  top: 300px; /* Start above viewport */
+  animation-delay: 6.5s; /* Delay for the fourth shape */
+}
+.shape8 {
+  background: linear-gradient(#0e4a5d, #833434);
+  left: 10%; /* Position on the left side */
+  top: 700px; /* Start above viewport */
+  animation-delay: 2.1s; /* Delay for the fourth shape */
+}
+
+form {
+  height: 520px;
+  width: 400px;
+  background-color: rgba(0, 0, 0, 0.8); /* Dark background for the form */
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.1); /* Optional: white border with some transparency */
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
+  padding: 50px 35px;
+  opacity: 0; /* Start invisible */
+  animation: fadeIn 1s ease forwards; /* Add fade-in animation */
+  animation-delay: 1.3s; /* Delay the form fade-in until shapes have dropped */
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  to {
+    opacity: 1; /* Fade to visible */
+  }
+}
+
+form * {
+  font-family: 'Poppins', sans-serif;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+  outline: none;
+  border: none;
+}
+
+form h3 {
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 42px;
+  text-align: center;
+}
+
+label {
+  display: block;
+  margin-top: 30px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+input {
+  display: block;
+  height: 50px;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.07);
+  border-radius: 3px;
+  padding: 0 10px;
+  margin-top: 8px;
+  font-size: 14px;
+  font-weight: 300;
+}
+
+::placeholder {
+  color: #e5e5e5;
+}
+
+button {
+  margin-top: 50px;
+  width: 100%;
+  background-color: #100909;
+  color: #080710;
+  padding: 15px 0;
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 5px;
+  cursor: pointer;
+}

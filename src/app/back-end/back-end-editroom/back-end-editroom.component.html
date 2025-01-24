@@ -1,0 +1,88 @@
+<div class="wrapper d-flex flex-column min-vh-100">
+  <div class="d-flex flex-grow-1">
+    <app-back-end-navbar></app-back-end-navbar>
+
+    <div class="content-wrapper flex-grow-1 d-flex flex-column">
+      <app-back-end-header></app-back-end-header>
+
+      <div class="container mt-4 flex-grow-1">
+        <!-- Show loading state -->
+        <div *ngIf="isLoading" class="text-center">Loading...</div>
+
+        <!-- Show room edit form if not loading -->
+        <div class="card" *ngIf="!isLoading">
+          <div class="card-header">
+            <h2 class="mb-0">Edit Room: {{ updatedRoom.name }}</h2>
+          </div>
+          <div class="card-body">
+            <form (ngSubmit)="updateRoom()">
+              <div class="mb-3">
+                <label for="name" class="form-label">Room Name</label>
+                <input 
+                  type="text" 
+                  id="name" 
+                  class="form-control" 
+                  [(ngModel)]="updatedRoom.name" 
+                  name="name" 
+                  required
+                />
+              </div>
+
+              <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea 
+                  id="description" 
+                  class="form-control" 
+                  [(ngModel)]="updatedRoom.description" 
+                  name="description" 
+                  required
+                ></textarea>
+              </div>
+
+              <div class="mb-3">
+                <label for="image" class="form-label">Room Image</label>
+                <!-- Display selected image preview if available -->
+                <input 
+                  type="file" 
+                  id="image" 
+                  class="form-control" 
+                  (change)="onFileSelected($event)"
+                />
+              </div>
+
+              <div *ngIf="previewUrl" class="mb-3">
+                <h5>Image Preview:</h5>
+                <img [src]="previewUrl" alt="Image preview" class="img-fluid" />
+              </div>
+
+              <div class="mb-3">
+                <button type="submit" class="btn btn-primary">Update Room</button>
+                <a [routerLink]="['/back-end/rooms']" class="btn btn-secondary ms-2">Cancel</a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Modal HTML -->
+      <div id="successModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="successModalLabel">Success</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="navigateToRoomDetail()"></button>
+            </div>
+            <div class="modal-body">
+              Room updated successfully!
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="navigateToRoomDetail()">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <app-back-end-footer></app-back-end-footer>
+    </div>
+  </div>
+</div>

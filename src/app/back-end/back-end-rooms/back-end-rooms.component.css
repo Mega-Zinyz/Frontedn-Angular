@@ -1,0 +1,135 @@
+:root {
+    --primary-color: #28666e;
+    --hover-shadow: rgba(0, 0, 0, 0.16);
+    --bg-gradient: linear-gradient(45deg, #7c9885, #b5b682);
+    --border-radius: 16px;
+    --transition-speed: 0.6s; /* Changed default transition speed */
+}
+
+body {
+    margin: 0;
+    padding: 48px 0;
+    font-family: "Figtree", sans-serif;
+    font-size: 1.2rem;
+    line-height: 1.6rem;
+    background-image: var(--bg-gradient);
+    min-height: 100vh;
+}
+
+.articles {
+    display: grid; /* Use grid for layout */
+    max-width: 1800px;
+    margin: auto;
+    padding: 24px;
+    grid-template-columns: repeat(4, 1fr); /* Set to 4 cards in a row */
+    gap: 24px; /* Space between grid items */
+}
+
+article {
+    position: relative;
+    border-radius: var(--border-radius);
+    background: #fff;
+    transition: all 0.6s ease-in-out; /* Slowed down the transition speed */
+    overflow: hidden;
+    box-shadow: none;
+}
+
+article img {
+    width: 100%; /* Ensure image takes full width */
+    height: 200px; /* Fixed height for uniformity */
+    object-fit: cover; /* Crop the image to fit */
+    transition: transform 0.6s ease; /* Slowed down image scaling animation */
+}
+
+.article-body {
+    padding: 16px; /* Adds padding around the article body */
+}
+
+article a {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    color: var(--primary-color);
+}
+
+article:hover {
+    box-shadow: var(--hover-shadow) 0px 10px 36px 0px; /* Shadow effect on hover */
+}
+
+article:hover img {
+    transform: scale(1.05); /* Slightly scale up image on hover */
+}
+
+article h2 {
+    margin: 0 0 18px 0;
+    font-family: "Bebas Neue", cursive;
+    font-size: 1.9rem;
+    letter-spacing: 0.06em;
+    color: var(--primary-color);
+    transition: color 0.6s ease-out; /* Changed duration */
+}
+
+.room-card {
+    border: 1px solid #ccc; /* Light gray border */
+    border-radius: 8px; /* Rounded corners */
+    overflow: hidden; /* Clips any overflow */
+    transition: transform 0.6s ease, box-shadow 0.6s ease; /* Slowed down the transition speed */
+}
+
+.room-card:hover {
+    transform: translateY(-5px); /* Moves card slightly up on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adds a shadow effect */
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 1200px) {
+    .articles {
+        grid-template-columns: repeat(4, 1fr); /* 4 cards in a row on medium screens */
+    }
+}
+
+@media screen and (max-width: 960px) {
+    .articles {
+        grid-template-columns: repeat(3, 1fr); /* 3 cards in a row on smaller screens */
+    }
+}
+
+@media screen and (max-width: 640px) {
+    .articles {
+        grid-template-columns: repeat(2, 1fr); /* 2 cards in a row on extra small screens */
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .articles {
+        grid-template-columns: 1fr; /* 1 card in a row on very small screens */
+    }
+}
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensures the wrapper takes full viewport height */
+}
+
+.content-wrapper {
+    display: flex;
+    flex-direction: column; /* Ensure it stacks elements vertically */
+    flex-grow: 1; /* Allow it to grow to fill space */
+}
+
+.container-wrapper {
+    flex-grow: 1; /* Allow it to grow and fill the space */
+    padding: 24px; /* Add some padding if needed */
+    overflow-y: auto; /* Allow scrolling if content overflows */
+}
+
+.articles {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 cards in a row */
+    gap: 24px; /* Space between grid items */
+}
+.custom-btn-container {
+    padding: 20px; /* Custom padding */
+    margin-bottom: 20px; /* Space below the button */
+    border-radius: 8px; /* Optional: Rounded corners */
+}

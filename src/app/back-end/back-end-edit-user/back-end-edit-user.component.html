@@ -1,0 +1,73 @@
+<div class="wrapper d-flex flex-column min-vh-100">
+    <div class="d-flex flex-grow-1">
+        <app-back-end-navbar></app-back-end-navbar>
+
+        <div class="content-wrapper flex-grow-1 d-flex flex-column p-3">
+            <app-back-end-header></app-back-end-header>
+
+            <div class="card shadow">
+                <div class="card-header">
+                    <h3 class="card-title">Edit User</h3>
+                </div>
+
+                <div class="container p-4">
+                    <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div> 
+                    
+                    <form *ngIf="user" (ngSubmit)="updateUser()" #userForm="ngForm">
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Username</label>
+                            <input type="text" id="username" [(ngModel)]="user.username" name="username" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="profil_url" class="form-label">Profile Image</label>
+                            <input type="file" id="profil_url" (change)="onFileSelected($event)" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Profile Image Preview</label>
+                            <div class="image-preview">
+                                <img 
+                                    [src]="previewUrl || (user.profil_url ? user.profil_url : 'assets/default-profile.png')" 
+                                    alt="Profile Image Preview" 
+                                    class="img-thumbnail" 
+                                    style="max-width: 150px; max-height: 150px; object-fit: cover; border-radius: 10px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);"
+                                    (load)="onImageLoad()"
+                                    (error)="onImageError()"
+                                >
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="newPassword" class="form-label">New Password</label>
+                            <input 
+                                type="password" 
+                                id="newPassword" 
+                                [(ngModel)]="newPassword" 
+                                name="newPassword" 
+                                class="form-control" 
+                            >
+                        </div>
+                        <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid">Update User</button>
+                    </form>
+                </div>           
+            </div>
+
+            <!-- Success Modal -->
+            <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="successModalLabel">User Updated</h5>
+                            <button type="button" class="btn-close" (click)="closeModal()" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            The user has been updated successfully!
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" (click)="navigateToUserList()">Go to User List</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <app-back-end-footer></app-back-end-footer>
+        </div>
+    </div>
+</div>

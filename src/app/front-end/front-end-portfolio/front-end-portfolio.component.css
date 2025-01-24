@@ -1,0 +1,4 @@
+.portfolio-item {
+  padding: 10px; /* Matches the gutter value */
+  width: calc(33.333% - 20px); /* Adjust this based on the number of columns and the gutter */
+}

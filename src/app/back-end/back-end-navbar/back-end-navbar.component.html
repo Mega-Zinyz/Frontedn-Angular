@@ -1,0 +1,69 @@
+<div>
+    <!-- Sidebar Wrapper -->
+    <aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="link-dark">
+        <!-- Sidebar Brand -->
+        <div class="sidebar-brand">
+            <a href="/back-end/dashboard" class="brand-link">
+                <img src="assets/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image opacity-75 shadow">
+                <span class="brand-text fw-light">Mess Pemda</span>
+            </a>
+        </div>
+        <!-- End Sidebar Brand -->
+
+        <div class="sidebar-wrapper">
+            <!-- Sidebar Navigation -->
+            <nav class="mt-2">
+                <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-accordion="false">
+                    <li class="nav-item menu-open">
+                        <a routerLink="/back-end/dashboard" class="nav-link active">
+                            <i class="nav-icon bi bi-house"></i>
+                            <p>Dashboard</p>
+                        </a>
+                    </li>
+                    <li class="nav-item menu-open">
+                        <a routerLink="/back-end/profil" class="nav-link active">
+                            <i class="nav-icon bi bi-person"></i>
+                            <p>Profile</p>
+                        </a>
+                    </li>
+                    <li class="nav-item menu-open">
+                        <a routerLink="/back-end/rooms" class="nav-link active">
+                            <i class="nav-icon bi bi-collection"></i>
+                            <p>Rooms</p>
+                        </a>
+                    </li>
+                    <li class="nav-item menu-open">
+                        <a routerLink="/back-end/rasa-control" class="nav-link active">
+                            <i class="nav-icon bi bi-chat"></i>
+                            <p>Rasa Control</p>
+                        </a>
+                    </li>
+                    <li class="nav-item menu-open">
+                        <a routerLink="/back-end/intents" class="nav-link active">
+                            <i class="nav-icon bi bi-bullseye"></i>
+                            <p>Intents</p>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </aside>
+    <!-- End Sidebar -->
+
+    <!-- Main Content -->
+    <div class="content-wrapper">
+        <!-- Toggle Button for Sidebar on Mobile -->
+        <button class="btn btn-primary d-block d-lg-none" id="sidebarToggle">
+            <i class="bi bi-list"></i> Toggle Sidebar
+        </button>
+
+        <!-- Main content goes here -->
+        <div class="app-main">
+            <!-- Your content here -->
+        </div>
+    </div>
+</div>
+
+<!-- Include Bootstrap JS and Popper for Responsive Collapse -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>

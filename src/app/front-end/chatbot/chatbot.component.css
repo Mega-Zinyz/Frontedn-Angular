@@ -1,0 +1,183 @@
+.chatbot-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 400px;
+    max-height: 600px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    z-index: 2000; /* Ensure it’s above other elements */
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.minimized-chatbot {
+    position: fixed;
+    bottom: 20px; /* Adjust as needed */
+    right: 20px; /* Adjust as needed */
+    width: 50px; /* Icon size */
+    height: 50px; /* Icon size */
+    background-color: #007bff; /* Background color for the icon */
+    border-radius: 50%; /* Circle shape */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white; /* Icon color */
+    cursor: pointer; /* Pointer cursor on hover */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    z-index: 2000; /* Ensure it’s above other elements */
+}
+
+
+/* Header for the chat */
+.chat-header {
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+/* Container for chat messages */
+.chat-messages {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* General message styling with fade-in effect */
+.message {
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 15px;
+    max-width: 70%;
+    word-wrap: break-word; /* Ensure long words break */
+    display: flex;         /* Flexbox layout for message */
+    flex-direction: column; /* Stack text and image */
+    animation: fadeIn 0.5s ease-out; /* Fade-in animation */
+}
+
+/* User message styling */
+.user-message {
+    background-color: #e1ffc7;
+    align-self: flex-end;
+    border-top-right-radius: 0;
+    text-align: right;
+}
+
+/* Bot message styling */
+.bot-message {
+    background-color: #f1f1f1;
+    align-self: flex-start;
+    border-top-left-radius: 0;
+    text-align: left;
+}
+
+/* Input area for sending messages */
+.chat-input {
+    display: flex;
+    border-top: 1px solid #ccc;
+    padding: 10px;
+}
+
+/* Typing indicator */
+.typing-indicator {
+    width: 30px;
+    height: 15px;
+    background-color: #f1f1f1;
+    border-radius: 10px;
+    position: relative;
+    margin-left: 5px;
+    margin-bottom: 10px;
+}
+
+.typing-indicator::before, .typing-indicator::after {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background-color: #007bff;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    animation: bounce 1.2s infinite alternate;
+}
+
+.typing-indicator::before {
+    left: 5px;
+    animation-delay: 0.2s;
+}
+
+.typing-indicator::after {
+    right: 5px;
+    animation-delay: 0.4s;
+}
+
+/* Styling for input field */
+.input-field {
+    flex-grow: 1;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+/* Styling for send button */
+.send-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin-left: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.send-button:hover {
+    background-color: #0056b3; /* Darken button on hover */
+    transform: scale(1.05);    /* Slightly enlarge button */
+    transition: background-color 0.3s, transform 0.3s; /* Smooth transition */
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Bounce animation for typing indicator */
+@keyframes bounce {
+    from {
+        transform: translateY(-50%) scale(1);
+    }
+    to {
+        transform: translateY(-75%) scale(1.2);
+    }
+}
+
+/* Responsive design */
+@media (max-width: 500px) {
+    .chatbot-container {
+        width: 90%;
+        right: 5%;
+    }
+}
+
+/* Additional image styling for messages */
+.message img {
+    max-width: 100%;           /* Image scales down with container */
+    height: auto;              /* Maintain aspect ratio */
+    margin-top: 5px;          /* Space between text and image */
+}

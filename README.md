@@ -1,45 +1,27 @@
----
-title: Angular + TypeScript + Caddy
-description: The default Angular TS starter, utilizing `Caddy` to serve the built single page app
-tags:
-  - Node
-  - Angular 18
-  - TypeScript
-  - Caddy
----
+# Website
 
-# Angular + TypeScript + Caddy
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.6.
 
-This project was originally generated with [`ng new my-app`](https://angular.dev/tools/cli/setup-local#create-a-workspace-and-initial-application)
+## Development server
 
-[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/template/13NBfA?referralCode=brody)
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-## ✨ Features
+## Code scaffolding
 
-- Angular 18 + TypeScript + Caddy
-- Caddy v2
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## 💁‍♀️ Local Development
+## Build
 
-- Install required dependencies with `npm install`
-- Run `npm run dev` for a dev server
-- Navigate to `http://127.0.0.1:4200/`. The application will automatically reload if you change any of the source files.
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Running unit tests
 
-## ❓ Why use `Caddy` when deploying to Railway?
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-Caddy is a powerful, enterprise-ready, open source web server, and therefore Caddy is far better suited to serve websites than `ng serve` is, using Caddy will result in much less memory and cpu usage compared to serving with `ng serve` (much lower running costs too)
+## Running end-to-end tests
 
-To see how this is achieved with nixpacks, check out the fully documented nixpacks.toml file in this repository
+Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
 
-The configuration for Caddy is called a Caddyfile, and you can edit that file to further suite your needs, by default it comes configured to serve a single page app for Angular, and to also gzip the responses
+## Further help
 
-**Relevant Caddy documentation:**
-
-- [The Caddyfile](https://caddyserver.com/docs/caddyfile)
-- [Caddyfile Directives](https://caddyserver.com/docs/caddyfile/directives)
-- [root](https://caddyserver.com/docs/caddyfile/directives/root)
-- [encode](https://caddyserver.com/docs/caddyfile/directives/encode)
-- [file_server](https://caddyserver.com/docs/caddyfile/directives/file_server)
-- [try_files](https://caddyserver.com/docs/caddyfile/directives/try_files)
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.

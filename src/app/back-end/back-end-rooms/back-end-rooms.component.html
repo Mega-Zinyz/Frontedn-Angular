@@ -1,0 +1,36 @@
+<div class="wrapper d-flex flex-column min-vh-100">
+    <div class="d-flex flex-grow-1">
+        <app-back-end-navbar></app-back-end-navbar>
+
+        <div class="content-wrapper flex-grow-1 d-flex flex-column">
+            <app-back-end-header></app-back-end-header>
+
+            <div class="custom-btn-container mb-3 pb-3">
+                <button type="button" class="btn btn-primary" [routerLink]="['/back-end/add-room']">
+                    Create New Room
+                </button>
+            </div>
+
+            <div class="container-wrapper flex-grow-1 mt-4 border-container">
+                <div class="row">
+                    <div class="col-md-4" *ngFor="let room of rooms">
+                        <article class="room-card mb-4">
+                            <div class="article-wrapper article-link" [routerLink]="['/back-end/room-detail', room.id]">
+                                <figure>
+                                    <img [src]="room.imageUrl || 'assets/images/default.jpg'" alt="{{ room.name }}" class="room-image" />
+                                </figure>
+                                <div class="article-body">
+                                    <h2>{{ room.name }}</h2>
+                                    <p>{{ room.description.length > 100 ? (room.description | slice:0:100) + '...' : room.description }}</p>
+                                    <span *ngIf="room.description.length > 100" class="read-more">Read More</span>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </div>
+
+            <app-back-end-footer></app-back-end-footer>
+        </div>
+    </div>
+</div>

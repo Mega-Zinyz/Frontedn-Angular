@@ -1,0 +1,77 @@
+<div class="wrapper d-flex flex-column min-vh-100">
+    <div class="d-flex flex-grow-1">
+        <app-back-end-navbar></app-back-end-navbar>
+        
+        <div class="content-wrapper flex-grow-1">
+            <app-back-end-header></app-back-end-header>
+            <div class="app-wrapper">
+                <main class="app-main">
+                    <div class="app-content-header">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <h3 class="mb-0">Dashboard</h3>
+                                </div>
+                                <div class="col-sm-6">
+                                    <ol class="breadcrumb float-sm-end">
+                                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="app-content">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <!-- Total Intents Widget -->
+                                <div class="col-lg-4 col-6">
+                                    <div class="small-box text-bg-primary">
+                                        <div class="inner" style="color: white;"> <!-- Add color change here -->
+                                            <h3 style="color: white;">{{ totalIntents }}</h3> <!-- Dynamic count of intents -->
+                                            <p>Intents/Kata-Kata</p>
+                                        </div>
+                                        <svg class="small-box-icon" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <!-- Your icon SVG here -->
+                                        </svg>
+                                        <a routerLink="/back-end/intents" class="small-box-footer link-light">More info <i class="bi bi-link-45deg"></i></a>
+                                    </div>
+                                </div>
+
+                                <!-- Available Rooms Widget -->
+                                <div class="col-lg-4 col-6">
+                                    <div class="small-box text-bg-success">
+                                        <div class="inner" style="color: white;"> <!-- Add color change here -->
+                                            <h3 style="color: white;">{{ availableRooms }}</h3> <!-- Dynamic count of available rooms -->
+                                            <p>Ruangan</p>
+                                        </div>
+                                        <svg class="small-box-icon" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <!-- Your icon SVG here -->
+                                        </svg>
+                                        <a routerLink="/back-end/rooms" class="small-box-footer link-light">More info <i class="bi bi-link-45deg"></i></a>
+                                    </div>
+                                </div>
+
+                                <!-- User Registrations Widget -->
+                                <div class="col-lg-4 col-6">
+                                    <div class="small-box text-bg-warning">
+                                        <div class="inner" style="color: white;"> <!-- Add color change here -->
+                                            <h3 style="color: white;">{{ userRegistrations }}</h3> <!-- Dynamic count of user registrations -->
+                                            <p>User</p>
+                                        </div>
+                                        <svg class="small-box-icon" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <!-- Your icon SVG here -->
+                                        </svg>
+                                        <a routerLink="/back-end/profil" class="small-box-footer link-light">More info <i class="bi bi-link-45deg"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+            <app-back-end-footer></app-back-end-footer>
+        </div>
+    </div>
+</div>

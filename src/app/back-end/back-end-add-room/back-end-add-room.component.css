@@ -1,0 +1,42 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.content-wrapper {
+    display: flex;
+    flex-grow: 1;
+}
+
+app-back-end-navbar {
+    flex: 0 0 250px; /* Adjust the width of the navbar */
+}
+
+.custom-btn-container {
+    padding: 20px; /* Optional padding for button area */
+}
+
+/* Ensure modal is styled properly */
+.modal-fullscreen {
+    max-width: 100%;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Dimmed background */
+}
+
+.modal-content {
+    height: auto; /* Change this to auto to allow for dynamic content */
+    border-radius: 0; /* Remove border radius for a modern look */
+}   
+
+/* Footer styling */
+app-back-end-footer {
+    flex: 0 0 60px; /* Set height for the footer */
+}
+.border-container {
+    border-radius: 5px; /* Rounded corners */
+    padding: 20px; /* Inner spacing */
+
+}

@@ -1,0 +1,40 @@
+.faq-container {
+    margin-top: 20px;
+  }
+  
+  .faq-item {
+    border: 1px solid #ddd; /* Add a border */
+    border-radius: 5px; /* Rounded corners */
+    margin-bottom: 10px; /* Space between items */
+    padding: 15px; /* Space inside the item */
+    background: #f9f9f9; /* Light background for each item */
+    transition: background 0.2s; /* Faster transition effect for background */
+  }
+  
+  .faq-item h3 {
+    cursor: pointer; /* Pointer cursor on hover */
+    font-size: 18px; /* Font size for questions */
+    margin: 0; /* Remove default margin */
+  }
+  
+  .faq-content {
+    padding-top: 10px; /* Space above the answer */
+    font-size: 16px; /* Font size for answers */
+    line-height: 1.5; /* Line height for better readability */
+  }
+  
+  .faq-toggle {
+    float: right;
+    font-size: 18px;
+    transition: transform 0.4s;
+    z-index: 1; /* Add this line */
+    position: relative; /* Add this line if needed */
+  }
+  
+  
+  /* Rotate the icon when the FAQ item is active */
+  .faq-item.faq-active .faq-toggle {
+    transform: rotate(90deg); /* Rotate icon for active state */
+  }
+
+  

@@ -1,0 +1,31 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    background-color: #007bff;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+nav {
+    background-color: #f8f9fa;
+    padding: 10px;
+}
+
+main {
+    flex: 1; /* Makes the main section expand to fill available space */
+    padding: 20px;
+    background-color: #ffffff; /* Optional: background for the main content */
+}
+
+footer {
+    background-color: #343a40;
+    color: white;
+    text-align: center;
+    padding: 10px;
+}
+
