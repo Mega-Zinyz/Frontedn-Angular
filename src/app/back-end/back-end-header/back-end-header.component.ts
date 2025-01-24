@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
-import { User } from '../../models/user.model';
-import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service'; 
+import { User } from '../../models/user.model'; 
+import { Router } from '@angular/router'; 
 import { environment } from '../../../environments/environment';
 
 @Component({
@@ -11,8 +11,8 @@ import { environment } from '../../../environments/environment';
 })
 export class BackEndHeaderComponent implements OnInit {
   user: User | null = null;
-  isLoading: boolean = false; // State loading
-  errorMessage: string | null = null; // Error message jika gagal
+  isLoading: boolean = false; 
+  errorMessage: string | null = null;
 
   constructor(
     private authService: AuthService,
@@ -25,16 +25,14 @@ export class BackEndHeaderComponent implements OnInit {
       (user: User | null) => {
         this.user = user;
 
-        // Periksa dan proses profil_url
         if (this.user?.profil_url) {
-          // Pastikan profil_url tidak berulang (double URL)
+          // Cek apakah profil_url sudah lengkap (memulai dengan 'http')
           if (!this.user.profil_url.startsWith('http')) {
-            // Periksa apakah profil_url sudah memiliki 'profil_img/'
+            // Hanya tambahkan base URL jika profil_url berupa path relatif
+            // Pastikan tidak ada duplikasi 'profil_img/'
             if (this.user.profil_url.startsWith('profil_img/')) {
-              // Jika sudah, hanya tambahkan base URL tanpa duplikasi
               this.user.profil_url = `${environment.apiUrl}/${this.user.profil_url}`;
             } else {
-              // Jika belum, tambahkan 'profil_img/' untuk URL lengkap
               this.user.profil_url = `${environment.apiUrl}/profil_img/${this.user.profil_url}`;
             }
           }
@@ -45,14 +43,14 @@ export class BackEndHeaderComponent implements OnInit {
         console.log('Processed Profile URL:', this.user?.profil_url);
       },
       (error) => {
-        this.errorMessage = 'Failed to load user data.'; // Error handling
+        this.errorMessage = 'Failed to load user data.';
         this.isLoading = false;
       }
     );
   }
 
   logout() {
-    this.authService.logout(); // Clear token dan user data
-    this.router.navigate(['/back-end/login']); // Redirect ke halaman login
+    this.authService.logout(); 
+    this.router.navigate(['/back-end/login']);
   }
 }
