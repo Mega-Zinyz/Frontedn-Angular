@@ -25,12 +25,14 @@ export class BackEndHeaderComponent implements OnInit {
       (user: User | null) => {
         this.user = user;
   
-        // Pastikan URL lengkap dibuat dengan environment.apiUrl
-        if (this.user?.profil_url && !this.user.profil_url.startsWith('http')) {
-          this.user.profil_url = `${environment.apiUrl}/profil_img/${this.user.profil_url}`;
+        // Periksa apakah profil_url adalah URL penuh
+        if (this.user?.profil_url) {
+          if (!this.user.profil_url.startsWith('http')) {
+            // Tambahkan base URL hanya jika profil_url adalah jalur relatif
+            this.user.profil_url = `${environment.apiUrl}/profil_img/${this.user.profil_url}`;
+          }
         }
-        console.log('Updated profil_url:', this.user?.profil_url);
-
+  
         this.isLoading = false;
         console.log('Current User:', user);
         console.log('Profile URL:', this.user?.profil_url);
@@ -40,7 +42,8 @@ export class BackEndHeaderComponent implements OnInit {
         this.isLoading = false;
       }
     );
-  }  
+  }
+  
   
   logout() {
     this.authService.logout(); // Clear token and user data
