@@ -25,18 +25,18 @@ export class BackEndHeaderComponent implements OnInit {
       (user: User | null) => {
         this.user = user;
   
-        // Bentuk URL lengkap jika perlu
+        // Bentuk URL lengkap untuk gambar profil
         if (this.user?.profil_url && !this.user.profil_url.startsWith('http')) {
-          this.user.profil_url = `${this.user.profil_url}`;
+          this.user.profil_url = `${environment.apiUrl}/profil_img/${this.user.profil_url}`;
         }
   
-        this.isLoading = false; // Stop loading
-        console.log('Current User:', user); // Log the user object
-        console.log('Profile URL:', this.user?.profil_url); // Check the profile URL
+        this.isLoading = false;
+        console.log('Current User:', user);
+        console.log('Profile URL:', this.user?.profil_url);
       },
       (error) => {
-        this.errorMessage = 'Failed to load user data.'; // Set error message if needed
-        this.isLoading = false; // Stop loading on error
+        this.errorMessage = 'Failed to load user data.';
+        this.isLoading = false;
       }
     );
   }  
