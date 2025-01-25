@@ -22,17 +22,22 @@ export class BackEndHeaderComponent implements OnInit {
     this.isLoading = true;
     this.authService.user$.subscribe(
       (user: User | null) => {
-        this.user = user; // Set the user object from the service
-        this.isLoading = false; // Stop loading when user data is received
-        console.log('Current User:', user); // Log the user object
-        console.log('Profile URL:', this.user?.profil_url); // Check the profile URL
+        if (user) {
+          // Add base URL for profile images if missing
+          const baseUrl = 'https://backend-nodejs-main.up.railway.app';
+          user.profil_url = user.profil_url
+            ? `${baseUrl}/profil_img/${user.profil_url}`
+            : null;
+        }
+        this.user = user;
+        this.isLoading = false;
       },
       (error) => {
-        this.errorMessage = 'Failed to load user data.'; // Set error message if needed
-        this.isLoading = false; // Stop loading on error
+        this.errorMessage = 'Failed to load user data.';
+        this.isLoading = false;
       }
     );
-  }
+}
   
   logout() {
     this.authService.logout(); // Clear token and user data
