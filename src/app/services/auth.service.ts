@@ -21,12 +21,6 @@ export class AuthService {
   login(username: string, password: string): Observable<{ token: string; user: User }> {
     return this.http.post<{ token: string; user: User }>(`${this.apiUrl}/login`, { username, password }).pipe(
       tap(response => {
-        // Tambahkan base URL untuk profil image jika perlu
-        const baseUrl = 'https://backend-nodejs-main.up.railway.app';
-        response.user.profil_url = response.user.profil_url 
-          ? `${baseUrl}/profil_img/${response.user.profil_url}` 
-          : 'assets/images/profile.png'; // Fallback URL jika tidak ada profil
-  
         this.storeToken(response.token);
         localStorage.setItem(this.userKey, JSON.stringify(response.user));
         this.userSubject.next(response.user);
@@ -36,7 +30,7 @@ export class AuthService {
         return throwError(error);
       })
     );
-  }  
+  }
 
   storeToken(token: string): void {
     localStorage.setItem(this.tokenKey, token); // Store token in local storage
@@ -59,15 +53,6 @@ export class AuthService {
 
   private getCurrentUser(): User | null {
     const user = localStorage.getItem(this.userKey);
-    if (user) {
-      const parsedUser: User = JSON.parse(user);
-      // Tambahkan base URL untuk profil image jika perlu
-      const baseUrl = 'https://backend-nodejs-main.up.railway.app';
-      parsedUser.profil_url = parsedUser.profil_url
-        ? `${baseUrl}/profil_img/${parsedUser.profil_url}`
-        : 'assets/images/profile.png'; // Fallback URL jika tidak ada profil
-      return parsedUser;
-    }
-    return null; // Retrieve and parse user info
-  }  
+    return user ? JSON.parse(user) : null; // Retrieve and parse user info
+  }
 }
