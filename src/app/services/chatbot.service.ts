@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ChatbotService {
-  private apiUrl = 'https://backend-nodejs-main.up.railway.app/webhook/rest/webhook'; // Replace with your actual API endpoint
+  private apiUrl = 'https://backend-nodejs-main.up.railway.app/message'; // Replace with your actual API endpoint
 
   constructor(private http: HttpClient) {}
 
