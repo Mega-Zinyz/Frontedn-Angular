@@ -1,5 +1,5 @@
-$(document).ready(function() {
-    if (typeof $ !== 'undefined' && $.fn.isotope) {
+$(window).on('load', function() {
+    if (typeof $.fn.isotope !== 'undefined') {
         console.log("Isotope is loaded and jQuery is available");
 
         var $grid = $('.isotope-container').isotope({
