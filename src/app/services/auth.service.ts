@@ -22,23 +22,31 @@ export class AuthService {
   public formatProfileUrl(profilUrl: string): string {
     const BASE_BACKEND_URL = "https://backend-nodejs-main.up.railway.app";
     
-    // Jika profilUrl sudah mengandung domain lengkap, kembalikan seperti adanya
+    // Jika profilUrl sudah mengandung domain lengkap (http:// atau https://), kembalikan URL seperti adanya
     if (profilUrl.startsWith('http://') || profilUrl.startsWith('https://')) {
       return profilUrl;
     }
   
-    // Jika profilUrl hanya path relatif, tambahkan BASE_BACKEND_URL
-    return `${BASE_BACKEND_URL}/${profilUrl.replace(/^\//, '')}`;
-  }    
+    // Jika profilUrl adalah path relatif, tambahkan BASE_BACKEND_URL
+    if (profilUrl && !profilUrl.startsWith('http')) {
+      // Pastikan profilUrl tidak sudah dimulai dengan "/"
+      return `${BASE_BACKEND_URL}/${profilUrl.replace(/^\//, '')}`;
+    }
+  
+    // Jika tidak memenuhi syarat di atas, kembalikan profilUrl apa adanya
+    return profilUrl;
+  }      
   
   login(username: string, password: string): Observable<{ token: string; user: User }> {
     return this.http.post<{ token: string; user: User }>(`${this.apiUrl}/login`, { username, password }).pipe(
       tap(response => {
         this.storeToken(response.token);
   
-        // Pastikan profil_url memiliki format yang benar
+        console.log('Original Profil URL:', response.user.profil_url); // Log profil_url sebelum diformat
+  
         if (response.user.profil_url && !response.user.profil_url.startsWith("http")) {
           response.user.profil_url = this.formatProfileUrl(response.user.profil_url);
+          console.log('Formatted Profil URL:', response.user.profil_url); // Log profil_url setelah diformat
         }
   
         localStorage.setItem(this.userKey, JSON.stringify(response.user));
@@ -49,7 +57,8 @@ export class AuthService {
         return throwError(error);
       })
     );
-  }  
+  }
+  
 
   storeToken(token: string): void {
     localStorage.setItem(this.tokenKey, token); // Store token in local storage
