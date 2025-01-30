@@ -79,10 +79,12 @@ export class BackEndEditRoomComponent implements OnInit {
     if (this.room) {
       const formData = new FormData();
   
-      // Convert the boolean available back to tinyint (1 or 0)
+      // Append only the updated fields to formData
       formData.append('name', this.updatedRoom.name);
       formData.append('description', this.updatedRoom.description);
-      formData.append('available', this.updatedRoom.available ? '1' : '0');  // Convert to 1 or 0
+  
+      // Konversi nilai available ke 1 (untuk true) atau 0 (untuk false)
+      formData.append('available', this.updatedRoom.available ? '1' : '0'); 
   
       // Append the new image only if selected
       if (this.selectedFile) {
@@ -101,7 +103,7 @@ export class BackEndEditRoomComponent implements OnInit {
         }
       );
     }
-  }
+  }  
 
   closeModal() {
     ($('#successModal') as any).modal('hide');  // Hide the modal using jQuery
