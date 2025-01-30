@@ -21,21 +21,16 @@ export class AuthService {
   // auth.service.ts
   public formatProfileUrl(profilUrl: string): string {
     const BASE_BACKEND_URL = "https://backend-nodejs-main.up.railway.app";
-    
-    // Jika profilUrl sudah mengandung domain lengkap (http:// atau https://), kembalikan URL seperti adanya
+  
+    // Jika profilUrl sudah mengandung domain lengkap, kembalikan URL seperti adanya
     if (profilUrl.startsWith('http://') || profilUrl.startsWith('https://')) {
       return profilUrl;
     }
   
     // Jika profilUrl adalah path relatif, tambahkan BASE_BACKEND_URL
-    if (profilUrl && !profilUrl.startsWith('http')) {
-      // Pastikan profilUrl tidak sudah dimulai dengan "/"
-      return `${BASE_BACKEND_URL}/${profilUrl.replace(/^\//, '')}`;
-    }
+    return `${BASE_BACKEND_URL}${profilUrl.startsWith('/') ? profilUrl : `/${profilUrl}`}`;
+  }
   
-    // Jika tidak memenuhi syarat di atas, kembalikan profilUrl apa adanya
-    return profilUrl;
-  }      
   
   login(username: string, password: string): Observable<{ token: string; user: User }> {
     return this.http.post<{ token: string; user: User }>(`${this.apiUrl}/login`, { username, password }).pipe(
