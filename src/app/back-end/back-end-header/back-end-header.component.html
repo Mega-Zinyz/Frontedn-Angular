@@ -1,3 +1,4 @@
+<!-- back-end-header.component.html -->
 <nav class="app-header navbar navbar-expand bg-body">
   <div class="container-fluid">
     <ul class="navbar-nav">
@@ -13,25 +14,21 @@
     <ul class="navbar-nav ms-auto">
       <li class="nav-item dropdown user-menu">
         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+          <!-- back-end-header.component.html -->
           <img
-            *ngIf="user?.profil_url; else defaultAvatar"
-            [src]="user?.profil_url"
+            [src]="authService.formatProfileUrl(user?.profil_url ?? '')"
             class="user-image rounded-circle shadow"
             alt="User Image"
           />
-          <ng-template #defaultAvatar>
-            <img src="assets/profile.png" class="user-image rounded-circle shadow" alt="User Image" />
-          </ng-template>
           <span class="d-none d-md-inline">{{ user?.username || 'Guest' }}</span>
         </a>
         <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
           <li class="user-header text-bg-primary">
             <img
-              *ngIf="user?.profil_url; else defaultUserHeader"
-              [src]="user?.profil_url"
-              class="rounded-circle shadow"
+              [src]="authService.formatProfileUrl(user?.profil_url ?? '')"
+              class="user-image rounded-circle shadow"
               alt="User Image"
-            />
+            />          
             <ng-template #defaultUserHeader>
               <img src="assets/profile.png" class="rounded-circle shadow" alt="User Image" />
             </ng-template>

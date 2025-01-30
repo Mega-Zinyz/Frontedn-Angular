@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../services/auth.service'; // Adjust the path as needed
-import { User } from '../../models/user.model'; // Adjust the path as needed
+import { AuthService } from '../../services/auth.service';
+import { User } from '../../models/user.model';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,11 +10,11 @@ import { Router } from '@angular/router';
 })
 export class BackEndHeaderComponent implements OnInit {
   user: User | null = null;
-  isLoading: boolean = false; // Add loading state
-  errorMessage: string | null = null; // Add error message
+  isLoading: boolean = false; 
+  errorMessage: string | null = null;
 
   constructor(
-    private authService: AuthService,
+    public authService: AuthService, // ubah menjadi public
     private router: Router
   ) {}
 
@@ -22,20 +22,20 @@ export class BackEndHeaderComponent implements OnInit {
     this.isLoading = true;
     this.authService.user$.subscribe(
       (user: User | null) => {
-        this.user = user; // Set the user object from the service
-        this.isLoading = false; // Stop loading when user data is received
-        console.log('Current User:', user); // Log the user object
-        console.log('Profile URL:', this.user?.profil_url); // Check the profile URL
+        this.user = user;
+        this.isLoading = false;
+        console.log('Current User:', user);
+        console.log('Profile URL:', this.user?.profil_url);
       },
       (error) => {
-        this.errorMessage = 'Failed to load user data.'; // Set error message if needed
-        this.isLoading = false; // Stop loading on error
+        this.errorMessage = 'Failed to load user data.';
+        this.isLoading = false;
       }
     );
   }
   
   logout() {
-    this.authService.logout(); // Clear token and user data
-    this.router.navigate(['/back-end/login']); // Redirect to login page
-  }  
+    this.authService.logout();
+    this.router.navigate(['/back-end/login']);
+  }
 }

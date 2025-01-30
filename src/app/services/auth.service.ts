@@ -17,11 +17,28 @@ export class AuthService {
   user$ = this.userSubject.asObservable(); // Observable to emit user changes
 
   constructor(private http: HttpClient, private router: Router) {}
-
+  
+  // auth.service.ts
+  public formatProfileUrl(profilUrl: string): string {
+    // Jika profilUrl sudah mengandung domain, kembalikan seperti adanya
+    if (profilUrl.startsWith('http://') || profilUrl.startsWith('https://')) {
+      return profilUrl;
+    }
+  
+    // Jika profilUrl hanya path relatif, tambahkan domain yang sudah ada
+    return `${profilUrl}`;
+  }  
+  
   login(username: string, password: string): Observable<{ token: string; user: User }> {
     return this.http.post<{ token: string; user: User }>(`${this.apiUrl}/login`, { username, password }).pipe(
       tap(response => {
         this.storeToken(response.token);
+  
+        // Pastikan profil_url memiliki format yang benar
+        if (response.user.profil_url && !response.user.profil_url.startsWith("http")) {
+          response.user.profil_url = this.formatProfileUrl(response.user.profil_url);
+        }
+  
         localStorage.setItem(this.userKey, JSON.stringify(response.user));
         this.userSubject.next(response.user);
       }),
@@ -30,7 +47,7 @@ export class AuthService {
         return throwError(error);
       })
     );
-  }
+  }  
 
   storeToken(token: string): void {
     localStorage.setItem(this.tokenKey, token); // Store token in local storage
