@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RoomService } from '../../services/room.service';
 import { Room } from '../../models/room.model';
 import { environment } from '../../../environments/environment';
+import { Modal } from 'bootstrap';
 
 @Component({
   selector: 'app-back-end-room-detail',
@@ -72,21 +73,26 @@ export class BackEndRoomDetailComponent implements OnInit {
       this.roomService.deleteRoom(this.room.id).subscribe(() => {
         const modalElement = document.getElementById('deleteConfirmationModal');
         if (modalElement) {
-          const modal = new (window as any).bootstrap.Modal(modalElement);
+          const modal = Modal.getInstance(modalElement); // Gunakan Modal dari import
           
-          // Pastikan event listener ditambahkan sebelum modal di-hide
-          modalElement.addEventListener('hidden.bs.modal', () => {
-            this.navigateToRoomList();
-          }, { once: true }); // `{ once: true }` memastikan listener hanya dipanggil sekali
-        
-          modal.hide();
+          if (modal) {
+            modalElement.addEventListener(
+              'hidden.bs.modal',
+              () => {
+                this.navigateToRoomList();
+              },
+              { once: true } // Listener hanya dijalankan sekali
+            );
+  
+            modal.hide(); // Tutup modal
+          }
         }
       }, error => {
         console.error('Error deleting room:', error);
         alert('Error deleting the room. Please try again.');
       });
     }
-  }
+  }  
 
   navigateToRoomList(): void {
     this.router.navigate(['/back-end/rooms']);
