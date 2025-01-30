@@ -18,15 +18,22 @@ export class BackEndHeaderComponent implements OnInit {
     private router: Router
   ) {}
 
-  fixProfileUrl(profilUrl: string | null | undefined): string {
-    const BASE_BACKEND_URL = "profil_img/";
+fixProfileUrl(profilUrl: string | null | undefined): string {
+  const BASE_BACKEND_URL = "https://backend-nodejs-main.up.railway.app";
 
-    if (!profilUrl) {
-      return "assets/profile.png"; // Gambar default jika null/undefined
-    }
-
-    return profilUrl.startsWith("http") ? profilUrl : `${BASE_BACKEND_URL}${profilUrl}`;
+  if (!profilUrl) {
+    return "assets/profile.png"; // Gambar default jika null/undefined
   }
+
+  // Jika URL sudah mengandung domain backend, jangan ditambahkan lagi
+  if (profilUrl.startsWith("http") || profilUrl.startsWith(BASE_BACKEND_URL)) {
+    return profilUrl;
+  }
+
+  // Jika URL hanya berupa path, tambahkan BASE_BACKEND_URL
+  return `${BASE_BACKEND_URL}/${profilUrl.replace(/^\//, '')}`;
+}
+
   
   ngOnInit() {
     this.isLoading = true;
