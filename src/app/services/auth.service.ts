@@ -17,14 +17,33 @@ export class AuthService {
   user$ = this.userSubject.asObservable(); // Observable to emit user changes
 
   constructor(private http: HttpClient, private router: Router) {}
-
+  
+  private formatProfileUrl(profilUrl: string): string {
+    const BASE_BACKEND_URL = "https://backend-nodejs-main.up.railway.app";
+  
+    // Jika profilUrl sudah mencakup domain (http:// atau https://), biarkan saja
+    if (profilUrl.startsWith("http://") || profilUrl.startsWith("https://")) {
+      return profilUrl;
+    }
+  
+    // Jika hanya path, tambahkan domain ke path tersebut
+    return `${BASE_BACKEND_URL}/${profilUrl.replace(/^\//, '')}`;
+  }
+  
   login(username: string, password: string): Observable<{ token: string; user: User }> {
     return this.http.post<{ token: string; user: User }>(`${this.apiUrl}/login`, { username, password }).pipe(
       tap(response => {
         this.storeToken(response.token);
+        
+        // Pastikan profil_url tidak null sebelum diproses
+        response.user.profil_url = response.user.profil_url
+          ? this.formatProfileUrl(response.user.profil_url)
+          : "assets/profile.png"; // Gambar default jika null
+      
         localStorage.setItem(this.userKey, JSON.stringify(response.user));
         this.userSubject.next(response.user);
       }),
+            
       catchError((error: HttpErrorResponse) => {
         console.error('Login failed', error);
         return throwError(error);
