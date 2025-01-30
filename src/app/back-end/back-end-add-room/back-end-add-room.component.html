@@ -42,23 +42,44 @@
                     <div class="form-group mb-2">
                         <label for="image" class="col-form-label">Room Image</label>
                         <input 
-                            id="image" 
-                            type="file" 
-                            class="form-control form-control-sm" 
-                            (change)="onFileSelected($event)" 
-                            accept="image/*"
+                          id="image" 
+                          type="file" 
+                          class="form-control form-control-sm" 
+                          (change)="onFileSelected($event)" 
+                          accept="image/*"
                         />
-                    </div>
-                    <div class="form-group mb-2">
-                        <label for="available" class="col-form-label">Available</label>
-                        <input 
-                            id="available" 
-                            type="checkbox" 
-                            class="form-control form-control-sm" 
-                            [(ngModel)]="newRoom.available" 
-                            name="available"
-                        />
-                    </div>                    
+                        <!-- Display image preview if image is selected -->
+                        <div *ngIf="imagePreview">
+                          <img [src]="imagePreview" alt="Image Preview" class="img-fluid mt-2" style="max-height: 200px; object-fit: cover;">
+                        </div>
+                      </div>                      
+                      <div class="form-group mb-2">
+                        <label class="col-form-label">Available</label>
+                        <div>
+                          <label class="me-3">
+                            <input 
+                              type="radio" 
+                              id="available" 
+                              name="available" 
+                              [(ngModel)]="newRoom.available" 
+                              [value]="true"
+                              class="form-check-input" 
+                            />
+                            Available
+                          </label>
+                          <label>
+                            <input 
+                              type="radio" 
+                              id="notAvailable" 
+                              name="available" 
+                              [(ngModel)]="newRoom.available" 
+                              [value]="false"
+                              class="form-check-input"
+                            />
+                            Not Available
+                          </label>
+                        </div>
+                      </div>                                          
                     <div class="mt-3">
                         <button type="button" class="btn btn-secondary me-2" (click)="router.navigate(['/back-end/rooms'])">Close</button>
                         <button type="submit" class="btn btn-primary" [disabled]="loading || roomForm.invalid">
