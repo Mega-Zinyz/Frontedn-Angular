@@ -41,7 +41,7 @@ export class BackEndEditRoomComponent implements OnInit {
           // Handle image URL if exists
           if (this.room.imageUrl) {
             const timestamp = new Date().getTime();  // For cache busting
-            this.room.imageUrl = `${environment.apiUrl}room_img/${this.room.imageUrl}?v=${timestamp}`;
+            this.room.imageUrl = `${environment.apiUrl}${this.room.imageUrl}?v=${timestamp}`;
             this.previewUrl = this.room.imageUrl;  // Set image preview URL
           }
   
