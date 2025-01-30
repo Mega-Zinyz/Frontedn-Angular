@@ -34,10 +34,16 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
             const targetId = this.getAttribute('href'); // Get the href from the link
-            const targetSection = document.querySelector(targetId); // Find the target element
-
-            if (targetSection) {
-                targetSection.scrollIntoView({ behavior: 'smooth' }); // Scroll to the target element
+            
+            // Check if the href is a hash link (i.e., an anchor)
+            if (targetId.startsWith('#')) {
+                const targetSection = document.querySelector(targetId); // Find the target section by id
+                if (targetSection) {
+                    targetSection.scrollIntoView({ behavior: 'smooth' }); // Scroll to the target element
+                }
+            } else {
+                // If it's a full URL, just navigate to that page
+                window.location.href = targetId;
             }
         });
     });
