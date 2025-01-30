@@ -73,12 +73,13 @@ export class BackEndRoomDetailComponent implements OnInit {
         const modalElement = document.getElementById('deleteConfirmationModal');
         if (modalElement) {
           const modal = new (window as any).bootstrap.Modal(modalElement);
-          modal.hide();
-
-          // Navigate to the room list after modal is hidden
+          
+          // Pastikan event listener ditambahkan sebelum modal di-hide
           modalElement.addEventListener('hidden.bs.modal', () => {
             this.navigateToRoomList();
-          });
+          }, { once: true }); // `{ once: true }` memastikan listener hanya dipanggil sekali
+        
+          modal.hide();
         }
       }, error => {
         console.error('Error deleting room:', error);
