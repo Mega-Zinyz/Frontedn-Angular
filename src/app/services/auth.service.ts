@@ -20,13 +20,13 @@ export class AuthService {
   
   // auth.service.ts
   public formatProfileUrl(profilUrl: string): string {
-    // Jika profilUrl sudah mengandung domain, kembalikan seperti adanya
+    // Jika profilUrl sudah mengandung domain lengkap (http/https), kembalikan seperti adanya
     if (profilUrl.startsWith('http://') || profilUrl.startsWith('https://')) {
       return profilUrl;
     }
   
-    // Jika profilUrl hanya path relatif, tambahkan domain yang sudah ada
-    return `${profilUrl}`;
+    // Jika profilUrl hanya path relatif, tambahkan domain frontend
+    return `https://backend-nodejs-main.up.railway.app/${profilUrl}`;
   }  
   
   login(username: string, password: string): Observable<{ token: string; user: User }> {
