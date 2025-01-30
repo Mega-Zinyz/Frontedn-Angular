@@ -23,13 +23,13 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Event listener for scrolling to the section
+    // Event listener for clicking the navbar links
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault(); // Prevent default behavior
 
             // Check if the chatbot is active
-            if (document.activeElement === chatbotContainer) {
+            if (document.activeElement.closest('.chatbot-container')) {
                 return; // Don't execute if chatbot is focused
             }
 
@@ -42,5 +42,9 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
+    // Call setActiveLink on page load to highlight the current section
+    setActiveLink();
+
+    // Event listener for scroll to update the active link
     window.addEventListener('scroll', setActiveLink);
 });
