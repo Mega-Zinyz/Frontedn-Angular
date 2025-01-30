@@ -78,29 +78,40 @@ export class BackEndEditRoomComponent implements OnInit {
       const reader = new FileReader();
       reader.onload = () => {
         this.previewUrl = reader.result as string;  // Update previewUrl
+        console.log('Image selected for preview:', reader.result);
       };
       reader.readAsDataURL(this.selectedFile);  // Read file for preview
     } else {
       this.selectedFile = null;
       this.previewUrl = null;  // Reset preview when no file is selected
     }
-  }
+  }  
 
   updateRoom() {
     if (this.room) {
       const formData = new FormData();
+      
+      // Log the current state of updatedRoom to ensure 'available' has the right value
+      console.log('Updated Room:', this.updatedRoom);
   
       // Append only the updated fields to formData
       formData.append('name', this.updatedRoom.name);
       formData.append('description', this.updatedRoom.description);
-  
+      
       // Konversi nilai available ke 1 (untuk true) atau 0 (untuk false)
       formData.append('available', this.updatedRoom.available ? '1' : '0'); 
-  
+      
+      // Log the available value after conversion to ensure it's being correctly sent
+      console.log('Available value being sent:', this.updatedRoom.available ? '1' : '0');
+    
       // Append the new image only if selected
       if (this.selectedFile) {
         formData.append('image', this.selectedFile, this.selectedFile.name);
+        console.log('Image file:', this.selectedFile);
       }
+  
+      // Log the formData before sending it to backend
+      console.log('Form Data being sent:', formData);
   
       // Call the roomService updateRoom method with all necessary arguments
       this.roomService.updateRoom(this.room.id, formData).subscribe(
@@ -114,7 +125,7 @@ export class BackEndEditRoomComponent implements OnInit {
         }
       );
     }
-  }  
+  }   
 
   closeModal() {
     ($('#successModal') as any).modal('hide');  // Hide the modal using jQuery
