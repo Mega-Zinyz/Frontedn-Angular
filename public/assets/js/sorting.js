@@ -1,4 +1,4 @@
-$(window).on('load', function() {
+$(document).ready(function() {
     if (typeof $.fn.isotope !== 'undefined') {
         console.log("Isotope is loaded and jQuery is available");
 
