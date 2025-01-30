@@ -58,7 +58,6 @@ export class BackEndRoomDetailComponent implements OnInit {
       }
     );
   }  
-
   
   showDeleteConfirmation(): void {
     const modalElement = document.getElementById('deleteConfirmationModal');

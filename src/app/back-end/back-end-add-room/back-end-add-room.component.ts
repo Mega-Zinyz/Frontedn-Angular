@@ -13,7 +13,8 @@ export class BackEndAddRoomComponent implements AfterViewInit {
   newRoom = {
     name: '',
     description: '',
-    image: null as File | null
+    image: null as File | null,
+    available: true
   };
   loading: boolean = false;
   modalInstance: any; // Store Bootstrap modal instance
@@ -36,28 +37,30 @@ export class BackEndAddRoomComponent implements AfterViewInit {
     }
   }
 
-  // Create room with form data
   createRoom() {
     if (this.loading) return; // Prevent multiple submissions
-  
+
     // Trim spaces and check for empty values
     const roomName = this.newRoom.name.trim();
     const roomDescription = this.newRoom.description.trim();
-  
+
     if (!roomName || !roomDescription) {
       alert('Room name and description are required!');
       return;
     }
-  
+
     this.loading = true; // Set loading state to true
     const formData = new FormData();
     formData.append('name', roomName);
     formData.append('description', roomDescription);
-    
+
     if (this.newRoom.image) {
       formData.append('image', this.newRoom.image);
     }
-  
+
+    // Include the 'available' status in the form data (default to true if not checked)
+    formData.append('available', this.newRoom.available ? '1' : '0');
+
     // Call the service to create a new room
     this.roomService.createRoom(formData).subscribe(
       response => {
@@ -76,13 +79,18 @@ export class BackEndAddRoomComponent implements AfterViewInit {
         }
       },
       error => {
-        console.error('Error creating room:', error);
         this.loading = false; // Reset loading state on error
+        if (error.status === 400 && error.error.message === 'A room with this name already exists') {
+          alert('A room with this name already exists. Please choose a different name.');
+        } else {
+          console.error('Error creating room:', error);
+          alert('An error occurred while creating the room. Please try again later.');
+        }
       }
     );
   }
-  
 
+  
   // Close the modal manually
   closeModal() {
     if (this.modalInstance) {

@@ -88,16 +88,17 @@ export class BackEndEditRoomComponent implements OnInit {
   updateRoom() {
     if (this.room) {
       const formData = new FormData();
-
+  
       // Append only the updated fields to formData
       formData.append('name', this.updatedRoom.name);
       formData.append('description', this.updatedRoom.description);
-
+      formData.append('available', String(this.updatedRoom.available)); // Add the 'available' field
+  
       // Append the new image only if selected
       if (this.selectedFile) {
         formData.append('image', this.selectedFile, this.selectedFile.name);
       }
-
+  
       // Call the roomService updateRoom method with all necessary arguments
       this.roomService.updateRoom(this.room.id, formData).subscribe(
         (response) => {
@@ -110,7 +111,7 @@ export class BackEndEditRoomComponent implements OnInit {
         }
       );
     }
-  }
+  }  
 
   closeModal() {
     ($('#successModal') as any).modal('hide');  // Hide the modal using jQuery

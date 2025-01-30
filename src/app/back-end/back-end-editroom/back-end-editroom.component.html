@@ -56,6 +56,20 @@
               </div>
 
               <div class="mb-3">
+                <label for="available" class="form-label">Available</label>
+                <input 
+                  type="checkbox" 
+                  id="available" 
+                  class="form-check-input" 
+                  [(ngModel)]="updatedRoom.available" 
+                  name="available"
+                />
+                <label class="form-check-label" for="available">
+                  Is this room available?
+                </label>
+              </div>
+
+              <div class="mb-3">
                 <button type="submit" class="btn btn-primary">Update Room</button>
                 <a [routerLink]="['/back-end/rooms']" class="btn btn-secondary ms-2">Cancel</a>
               </div>

@@ -24,7 +24,23 @@
               <strong>Description:</strong>
               <p class="card-text mt-2">{{ room.description }}</p>
             </div>
+
+            <div class="border rounded p-3 mb-3" style="background-color: #f8f9fa;">
+              <strong>Availability:</strong>
+              <p class="card-text mt-2">{{ room.available ? 'Available' : 'Not Available' }}</p>
+            </div>
+
+            <div class="border rounded p-3 mb-3" style="background-color: #f8f9fa;">
+              <strong>Created At:</strong>
+              <p class="card-text mt-2">{{ room.created_at | date: 'short' }}</p>
+            </div>
+
+            <div class="border rounded p-3 mb-3" style="background-color: #f8f9fa;">
+              <strong>Last Updated:</strong>
+              <p class="card-text mt-2">{{ room.updated_at | date: 'short' }}</p>
+            </div>
           </div>
+
           <div class="card-footer text-right">
             <button 
               class="btn btn-primary mr-2 me-2" 
