@@ -34,20 +34,10 @@ export class BackEndEditRoomComponent implements OnInit {
       this.roomService.getRoomById(roomId).subscribe(
         (data: Room) => {
           this.room = data;
-          const timestamp = new Date().getTime(); // For cache busting
-
-          if (this.room.imageUrl) {
-            // Ensure the imageUrl is a complete URL
-            if (!this.room.imageUrl.startsWith('http')) {
-              this.room.imageUrl = `${environment.apiUrl}/room_img/${this.room.imageUrl}`;
-            }
-            // Append timestamp for cache busting
-            this.room.imageUrl += `?v=${timestamp}`;
-          }
-
-          // Populate updatedRoom with existing room data
-          this.updatedRoom = { ...this.room };  // Use spread to copy data from room
-
+  
+          // Convert available (tinyint 1 or 0) to boolean explicitly
+          this.updatedRoom.available = !!this.room.available;  // Convert to boolean
+  
           this.isLoading = false;
         },
         (error) => {
@@ -60,7 +50,7 @@ export class BackEndEditRoomComponent implements OnInit {
       this.errorMessage = 'Room ID is null.';
     }
   }
-
+  
   onImageLoad() {
     console.log('Image loaded successfully.');
   }
@@ -89,10 +79,10 @@ export class BackEndEditRoomComponent implements OnInit {
     if (this.room) {
       const formData = new FormData();
   
-      // Append the fields to formData
+      // Convert the boolean available back to tinyint (1 or 0)
       formData.append('name', this.updatedRoom.name);
       formData.append('description', this.updatedRoom.description);
-      formData.append('available', String(this.updatedRoom.available)); // Ensure 'available' is added
+      formData.append('available', this.updatedRoom.available ? '1' : '0');  // Convert to 1 or 0
   
       // Append the new image only if selected
       if (this.selectedFile) {
@@ -111,7 +101,7 @@ export class BackEndEditRoomComponent implements OnInit {
         }
       );
     }
-  }  
+  }
 
   closeModal() {
     ($('#successModal') as any).modal('hide');  // Hide the modal using jQuery
