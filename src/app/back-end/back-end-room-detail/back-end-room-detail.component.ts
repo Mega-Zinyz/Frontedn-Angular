@@ -30,7 +30,6 @@ export class BackEndRoomDetailComponent implements OnInit, AfterViewInit {
     }
   }
 
-  // Pindahkan inisialisasi modal ke `ngAfterViewInit()`
   ngAfterViewInit(): void {
     const modalElement = document.getElementById('deleteConfirmationModal');
     if (modalElement) {
@@ -61,25 +60,34 @@ export class BackEndRoomDetailComponent implements OnInit, AfterViewInit {
   }
 
   showDeleteConfirmation(): void {
+    console.log("Opening delete confirmation modal...");
     if (this.modalInstance) {
       this.modalInstance.show();
+    } else {
+      console.error("Modal instance is not initialized!");
     }
   }
 
   deleteRoom(): void {
     if (this.room?.id) {
-      this.roomService.deleteRoom(this.room.id).subscribe(() => {
-        if (this.modalInstance) {
-          this.modalInstance.hide(); // Tutup modal sebelum navigasi
+      console.log("Deleting room with ID:", this.room.id);
 
+      this.roomService.deleteRoom(this.room.id).subscribe(() => {
+        console.log("Room deleted successfully.");
+
+        if (this.modalInstance) {
+          this.modalInstance.hide(); // Pastikan modal tertutup
+
+          // Tambahkan event listener agar navigasi terjadi setelah modal tertutup
           const modalElement = document.getElementById('deleteConfirmationModal');
           if (modalElement) {
             modalElement.addEventListener(
               'hidden.bs.modal',
               () => {
+                console.log("Modal hidden, navigating to rooms page...");
                 this.router.navigate(['/back-end/rooms']);
               },
-              { once: true }
+              { once: true } // Event listener hanya dipanggil sekali
             );
           }
         }
@@ -87,6 +95,8 @@ export class BackEndRoomDetailComponent implements OnInit, AfterViewInit {
         console.error('Error deleting room:', error);
         alert('Error deleting the room. Please try again.');
       });
+    } else {
+      console.error("Room ID is undefined!");
     }
   }
 }
