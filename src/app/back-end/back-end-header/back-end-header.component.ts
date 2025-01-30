@@ -18,6 +18,16 @@ export class BackEndHeaderComponent implements OnInit {
     private router: Router
   ) {}
 
+  fixProfileUrl(profilUrl: string | null | undefined): string {
+    const BASE_BACKEND_URL = "https://backend-nodejs-main.up.railway.app/profil_img/";
+
+    if (!profilUrl) {
+      return "assets/profile.png"; // Gambar default jika null/undefined
+    }
+
+    return profilUrl.startsWith("http") ? profilUrl : `${BASE_BACKEND_URL}${profilUrl}`;
+  }
+  
   ngOnInit() {
     this.isLoading = true;
     this.authService.user$.subscribe(
