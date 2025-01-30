@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RoomService } from '../../services/room.service';
 import { Room } from '../../models/room.model';
 import { environment } from '../../../environments/environment';
+import { Modal } from 'bootstrap';
 
 @Component({
   selector: 'app-back-end-room-detail',
@@ -12,6 +13,7 @@ import { environment } from '../../../environments/environment';
 export class BackEndRoomDetailComponent implements OnInit {
   room!: Room;
   loading: boolean = false;
+  modalInstance!: Modal;
 
   constructor(
     private roomService: RoomService,
@@ -23,10 +25,17 @@ export class BackEndRoomDetailComponent implements OnInit {
     console.log('Room Detail Component Initialized');
     const roomId = this.route.snapshot.paramMap.get('id');
     if (roomId) {
-      this.loading = true; // Set loading state to true
+      this.loading = true;
       this.fetchRoomDetails(roomId);
     }
+  
+    // Inisialisasi modal instance
+    const modalElement = document.getElementById('deleteConfirmationModal');
+    if (modalElement) {
+      this.modalInstance = new Modal(modalElement);
+    }
   }
+  
 
   fetchRoomDetails(id: string): void {
     this.loading = true; // Start loading state
@@ -70,19 +79,25 @@ export class BackEndRoomDetailComponent implements OnInit {
   deleteRoom(): void {
     if (this.room?.id) {
       this.roomService.deleteRoom(this.room.id).subscribe(() => {
-        const modalElement = document.getElementById('deleteConfirmationModal');
-        if (modalElement) {
-          const modal = new (window as any).bootstrap.Modal(modalElement);
-          modal.hide();
-
-          // Navigate to the room list after modal is hidden
-          modalElement.addEventListener('hidden.bs.modal', () => {
-            this.router.navigate(['/back-end/rooms']);          });
+        if (this.modalInstance) {
+          // Pastikan navigasi hanya terjadi setelah modal benar-benar tertutup
+          const modalElement = document.getElementById('deleteConfirmationModal');
+          if (modalElement) {
+            modalElement.addEventListener(
+              'hidden.bs.modal',
+              () => {
+                this.router.navigate(['/back-end/rooms']);
+              },
+              { once: true } // Event listener hanya dipanggil sekali
+            );
+          }
+          
+          this.modalInstance.hide(); // Tutup modal
         }
       }, error => {
         console.error('Error deleting room:', error);
         alert('Error deleting the room. Please try again.');
       });
     }
-  }
+  }  
 }
