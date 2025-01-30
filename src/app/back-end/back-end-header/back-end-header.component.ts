@@ -19,7 +19,7 @@ export class BackEndHeaderComponent implements OnInit {
   ) {}
 
   fixProfileUrl(profilUrl: string | null | undefined): string {
-    const BASE_BACKEND_URL = "https://backend-nodejs-main.up.railway.app/profil_img/";
+    const BASE_BACKEND_URL = "profil_img/";
 
     if (!profilUrl) {
       return "assets/profile.png"; // Gambar default jika null/undefined
