@@ -26,7 +26,7 @@ export class AuthService {
     }
   
     // Jika profilUrl hanya path relatif, tambahkan domain yang sudah ada
-    return `${profilUrl}`;
+    return `https://backend-nodejs-main.up.railway.app/${profilUrl}`;
   }  
   
   login(username: string, password: string): Observable<{ token: string; user: User }> {
