@@ -38,6 +38,17 @@ export class BackEndEditRoomComponent implements OnInit {
           // Convert available (tinyint 1 or 0) to boolean explicitly
           this.updatedRoom.available = !!this.room.available;  // Convert to boolean
   
+          // Handle image URL if exists
+          if (this.room.imageUrl) {
+            const timestamp = new Date().getTime();  // For cache busting
+            this.room.imageUrl = `${environment.apiUrl}/room_img/${this.room.imageUrl}?v=${timestamp}`;
+            this.previewUrl = this.room.imageUrl;  // Set image preview URL
+          }
+  
+          // Set name and description for the form
+          this.updatedRoom.name = this.room.name;
+          this.updatedRoom.description = this.room.description;
+  
           this.isLoading = false;
         },
         (error) => {
@@ -49,7 +60,7 @@ export class BackEndEditRoomComponent implements OnInit {
       this.isLoading = false;
       this.errorMessage = 'Room ID is null.';
     }
-  }
+  }  
   
   onImageLoad() {
     console.log('Image loaded successfully.');

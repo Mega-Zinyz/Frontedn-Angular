@@ -65,6 +65,7 @@
                     [(ngModel)]="updatedRoom.available" 
                     name="available" 
                     [value]="true"
+                    [checked]="updatedRoom.available === true"
                   />
                   <label class="form-check-label" for="availableYes">
                     Available
@@ -78,6 +79,7 @@
                     [(ngModel)]="updatedRoom.available" 
                     name="available" 
                     [value]="false"
+                    [checked]="updatedRoom.available === false"
                   />
                   <label class="form-check-label" for="availableNo">
                     Not Available
