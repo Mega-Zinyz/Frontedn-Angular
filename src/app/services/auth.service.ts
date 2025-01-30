@@ -20,14 +20,16 @@ export class AuthService {
   
   // auth.service.ts
   public formatProfileUrl(profilUrl: string): string {
-    // Jika profilUrl sudah mengandung domain lengkap (http/https), kembalikan seperti adanya
+    const BASE_BACKEND_URL = "https://backend-nodejs-main.up.railway.app";
+    
+    // Jika profilUrl sudah mengandung domain lengkap, kembalikan seperti adanya
     if (profilUrl.startsWith('http://') || profilUrl.startsWith('https://')) {
       return profilUrl;
     }
   
-    // Jika profilUrl hanya path relatif, tambahkan domain frontend
-    return `https://backend-nodejs-main.up.railway.app/${profilUrl}`;
-  }  
+    // Jika profilUrl hanya path relatif, tambahkan BASE_BACKEND_URL
+    return `${BASE_BACKEND_URL}/${profilUrl.replace(/^\//, '')}`;
+  }    
   
   login(username: string, password: string): Observable<{ token: string; user: User }> {
     return this.http.post<{ token: string; user: User }>(`${this.apiUrl}/login`, { username, password }).pipe(
