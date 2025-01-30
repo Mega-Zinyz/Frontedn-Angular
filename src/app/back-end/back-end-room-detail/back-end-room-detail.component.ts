@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RoomService } from '../../services/room.service';
 import { Room } from '../../models/room.model';
@@ -10,7 +10,7 @@ import { Modal } from 'bootstrap';
   templateUrl: './back-end-room-detail.component.html',
   styleUrls: ['./back-end-room-detail.component.css']
 })
-export class BackEndRoomDetailComponent implements OnInit {
+export class BackEndRoomDetailComponent implements OnInit, AfterViewInit {
   room!: Room;
   loading: boolean = false;
   modalInstance!: Modal;
@@ -28,51 +28,41 @@ export class BackEndRoomDetailComponent implements OnInit {
       this.loading = true;
       this.fetchRoomDetails(roomId);
     }
-  
-    // Inisialisasi modal instance
+  }
+
+  // Pindahkan inisialisasi modal ke `ngAfterViewInit()`
+  ngAfterViewInit(): void {
     const modalElement = document.getElementById('deleteConfirmationModal');
     if (modalElement) {
       this.modalInstance = new Modal(modalElement);
     }
   }
-  
 
   fetchRoomDetails(id: string): void {
-    this.loading = true; // Start loading state
+    this.loading = true;
     this.roomService.getRoomById(id).subscribe(
       (data: Room) => {
-        this.room = data; // Assign fetched room details
-        console.log('Fetched room details:', this.room); // Log the fetched room data
-  
-        // Append timestamp for cache busting if imageUrl exists
+        this.room = data;
+
         if (this.room.imageUrl) {
-          console.log('Original imageUrl:', this.room.imageUrl); // Log original image URL
-  
-          // Prepend base URL if the image URL is relative
           if (!this.room.imageUrl.startsWith('http')) {
-            this.room.imageUrl = `${environment.apiUrl}${this.room.imageUrl}`; // Prepend base URL if necessary
+            this.room.imageUrl = `${environment.apiUrl}${this.room.imageUrl}`;
           }
-  
-          // Generate timestamp to bust cache
-          const timestamp = new Date().getTime();
-          this.room.imageUrl += `?v=${timestamp}`; // Append timestamp
-          console.log('Updated imageUrl:', this.room.imageUrl); // Log updated URL with timestamp
+          this.room.imageUrl += `?v=${new Date().getTime()}`;
         }
-  
-        this.loading = false; // Set loading state to false
+
+        this.loading = false;
       },
       error => {
         console.error('Error fetching room details:', error);
-        this.loading = false; // Set loading state to false if error occurs
+        this.loading = false;
       }
     );
-  }  
-  
+  }
+
   showDeleteConfirmation(): void {
-    const modalElement = document.getElementById('deleteConfirmationModal');
-    if (modalElement) {
-      const modal = new (window as any).bootstrap.Modal(modalElement);
-      modal.show();
+    if (this.modalInstance) {
+      this.modalInstance.show();
     }
   }
 
@@ -80,7 +70,8 @@ export class BackEndRoomDetailComponent implements OnInit {
     if (this.room?.id) {
       this.roomService.deleteRoom(this.room.id).subscribe(() => {
         if (this.modalInstance) {
-          // Pastikan navigasi hanya terjadi setelah modal benar-benar tertutup
+          this.modalInstance.hide(); // Tutup modal sebelum navigasi
+
           const modalElement = document.getElementById('deleteConfirmationModal');
           if (modalElement) {
             modalElement.addEventListener(
@@ -88,16 +79,14 @@ export class BackEndRoomDetailComponent implements OnInit {
               () => {
                 this.router.navigate(['/back-end/rooms']);
               },
-              { once: true } // Event listener hanya dipanggil sekali
+              { once: true }
             );
           }
-          
-          this.modalInstance.hide(); // Tutup modal
         }
       }, error => {
         console.error('Error deleting room:', error);
         alert('Error deleting the room. Please try again.');
       });
     }
-  }  
+  }
 }
