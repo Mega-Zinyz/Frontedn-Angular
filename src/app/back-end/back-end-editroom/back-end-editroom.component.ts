@@ -89,10 +89,10 @@ export class BackEndEditRoomComponent implements OnInit {
     if (this.room) {
       const formData = new FormData();
   
-      // Append only the updated fields to formData
+      // Append the fields to formData
       formData.append('name', this.updatedRoom.name);
       formData.append('description', this.updatedRoom.description);
-      formData.append('available', String(this.updatedRoom.available)); // Add the 'available' field
+      formData.append('available', String(this.updatedRoom.available)); // Ensure 'available' is added
   
       // Append the new image only if selected
       if (this.selectedFile) {
