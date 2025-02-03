@@ -1,0 +1,5 @@
+.dropdown-menu {
+    display: block !important;
+    position: absolute;
+    z-index: 1050; 
+  }  

@@ -41,6 +41,7 @@
               "@angular/material/prebuilt-themes/azure-blue.css"
             ],
             "scripts": [
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
               "public/assets/vendor/glightbox/js/glightbox.min.js",
               "node_modules/swiper/swiper-bundle.min.js",
               "node_modules/jquery/dist/jquery.min.js"
@@ -107,6 +108,7 @@
               "@angular/material/prebuilt-themes/azure-blue.css"
             ],
             "scripts": [
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
               "node_modules/swiper/swiper-bundle.min.js",
               "node_modules/jquery/dist/jquery.min.js"
             ]
