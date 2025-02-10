@@ -34,12 +34,20 @@
         </div>
 
         <div class="terminal-area mt-4 d-flex flex-column mx-auto" style="max-width: 1620px;">
-  
           <!-- Rasa Logs -->
           <div class="log-terminal card mb-4">
             <h3 class="card-header">Rasa Logs</h3>
             <div class="card-body" #rasaLogContainer style="overflow-y: auto; max-height: 300px;">
-              <pre style="white-space: pre-wrap;">{{ rasaLogs }}</pre>
+              <div *ngFor="let log of parsedRasaLogs" [ngClass]="{
+                  'text-success': log.log_level === 'info',
+                  'text-warning': log.log_level === 'warning',
+                  'text-danger': log.log_level === 'error',
+                  'text-muted': log.log_level === 'debug'
+              }">
+                <span>{{ log.timestamp | date:'short' }} - </span>
+                <strong>{{ log.log_level | titlecase }}: </strong>
+                <span [innerHTML]="log.message"></span>
+              </div>
             </div>
           </div>
         
@@ -51,6 +59,7 @@
             </div>
           </div>    
         </div>        
+      </div>
       <app-back-end-footer></app-back-end-footer>
     </div>
   </div>

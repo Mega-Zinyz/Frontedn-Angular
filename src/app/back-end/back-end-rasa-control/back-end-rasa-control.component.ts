@@ -13,6 +13,7 @@ export class BackEndRasaControlComponent implements OnInit, OnDestroy {
   secondLogs: string = ''; 
   rasaServerState: 'stopped' | 'starting' | 'running' | 'idle' = 'stopped'; 
   logFetchInterval: Subscription | undefined; 
+  parsedRasaLogs: any[] = []; // Array to store parsed logs
   @ViewChild('rasaLogContainer') rasaLogContainer!: ElementRef; 
   @ViewChild('secondLogContainer') secondLogContainer!: ElementRef; 
 
@@ -66,11 +67,9 @@ export class BackEndRasaControlComponent implements OnInit, OnDestroy {
         this.rasaService.restartRasa().subscribe(
             response => {
                 console.log('Rasa server restarted successfully:', response);
-                // You might want to update the server state here if needed
             },
             error => {
                 console.error('Error restarting Rasa:', error);
-                // Handle error appropriately, maybe alert the user
             }
         ); 
     }
@@ -80,6 +79,7 @@ export class BackEndRasaControlComponent implements OnInit, OnDestroy {
     this.rasaService.getTodayLogs().subscribe(
       (response: string) => {
         this.rasaLogs = response; // Update logs
+        this.parseLogs(response); // Parse and structure logs
         this.scrollToBottom(this.rasaLogContainer); // Scroll to the bottom for Rasa logs
         this.checkRasaStatus(); // Check the status after fetching logs
       },
@@ -103,6 +103,24 @@ export class BackEndRasaControlComponent implements OnInit, OnDestroy {
     );
   }
   
+  private parseLogs(rawLogs: string) {
+    try {
+      // Assuming the raw logs are JSON strings
+      const logs = JSON.parse(rawLogs);
+      this.parsedRasaLogs = logs.map((log: any) => ({
+        ...log,
+        message: this.removeEscapeCharacters(log.message),
+        timestamp: new Date(log.timestamp)
+      }));
+    } catch (error) {
+      console.error('Error parsing logs:', error);
+    }
+  }
+
+  private removeEscapeCharacters(str: string): string {
+    return str.replace(/\u001b\[[0-9;]*m/g, '');  // Remove escape characters like colors
+  }
+
   private scrollToBottom(container: ElementRef) {
     if (container) {
       setTimeout(() => {

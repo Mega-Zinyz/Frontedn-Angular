@@ -21,3 +21,34 @@
   white-space: pre-wrap; /* Wrap text and respect whitespace */
   min-width: 100%; /* Ensure it takes full width */
 }
+
+.text-success {
+  color: #28a745; /* Green for info */
+}
+
+.text-warning {
+  color: #ffc107; /* Yellow for warning */
+}
+
+.text-danger {
+  color: #dc3545; /* Red for error */
+}
+
+.text-muted {
+  color: #6c757d; /* Grey for debug */
+}
+
+.card-body {
+  background-color: #f8f9fa; /* Light background */
+  padding: 10px;
+}
+
+.card-header {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.spinner-border {
+  margin: 10px;
+  display: inline-block;
+}
