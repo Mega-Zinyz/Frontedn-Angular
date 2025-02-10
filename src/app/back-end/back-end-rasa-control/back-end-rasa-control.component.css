@@ -1,7 +1,7 @@
 .log-terminal {
-  background-color: #1e1e1e; /* Dark background */
-  color: #f8f8f2; /* White text color */
-  padding: 20px;
+  background-color: #000000; /* Latar belakang hitam */
+  color: #f8f8f2; /* Warna teks putih */
+  padding: 12px; /* Reduce padding to make logs more compact */
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow effect */
   overflow-y: auto; /* Allow vertical scrolling */
@@ -32,6 +32,7 @@
 .card-body pre {
   margin: 0;
   padding: 0;
+  font-size: 0.9rem; /* Smaller font size for better fitting */
 }
 
 .card-title {
