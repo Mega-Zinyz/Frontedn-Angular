@@ -20,7 +20,7 @@
                  }">
                 Rasa Server is {{ rasaServerState === 'starting' ? 'Starting...' : (rasaServerState === 'running' ? 'Running' : (rasaServerState === 'idle' ? 'Idle' : 'Stopped')) }}
               </p>
-              <div>
+              <div class="btn-group">
                 <button class="btn btn-success me-2" (click)="startRasa()" [disabled]="rasaServerState === 'starting' || rasaServerState === 'running'">Start Rasa</button>
                 <button class="btn btn-danger me-2" (click)="stopRasa()" [disabled]="rasaServerState === 'stopped'">Stop Rasa</button>
                 <button class="btn btn-warning" (click)="restartRasa()" [disabled]="rasaServerState !== 'running'">Restart Rasa</button>

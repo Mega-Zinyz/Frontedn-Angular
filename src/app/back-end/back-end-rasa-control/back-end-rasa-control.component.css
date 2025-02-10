@@ -1,6 +1,36 @@
+/* General Layout */
+.d-flex.align-items-center {
+  align-items: center; /* Vertically align text and buttons */
+}
+
+.card-text {
+  margin-bottom: 0; /* Remove bottom margin to align text properly */
+}
+
+.card-body {
+  display: flex;
+  justify-content: space-between; /* Distribute space between elements */
+  align-items: center; /* Vertically align the items */
+  padding: 1.25rem; /* Adjust padding for better spacing */
+}
+
+.card-body p {
+  margin-right: 20px; /* Space between text and buttons */
+}
+
+.card-body .btn-group {
+  display: flex;
+  gap: 10px; /* Space between buttons */
+}
+
+.spinner-border {
+  margin-left: 10px; /* Space between spinner and button */
+}
+
+/* Log Terminal Styling */
 .log-terminal {
-  background-color: #000000; /* Latar belakang hitam */
-  color: #f8f8f2; /* Warna teks putih */
+  background-color: #000000; /* Black background */
+  color: #f8f8f2; /* White text color */
   padding: 12px; /* Reduce padding to make logs more compact */
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow effect */
@@ -56,6 +86,7 @@
   border: 1px solid #e0e0e0;
 }
 
+/* Button Styling */
 button {
   transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth hover transition */
 }
