@@ -9,11 +9,10 @@ import { RasaStatusResponse } from '../../models/rasa-status-response.model';
   styleUrls: ['./back-end-rasa-control.component.css']
 })
 export class BackEndRasaControlComponent implements OnInit, OnDestroy {
-  rasaLogs: string = ''; 
-  secondLogs: string = ''; 
+  parsedRasaLogs: any[] = []; // Array to store parsed logs
+  secondLogs: any[] = []; // Store second logs as an array
   rasaServerState: 'stopped' | 'starting' | 'running' | 'idle' = 'stopped'; 
   logFetchInterval: Subscription | undefined; 
-  parsedRasaLogs: any[] = []; // Array to store parsed logs
   @ViewChild('rasaLogContainer') rasaLogContainer!: ElementRef; 
   @ViewChild('secondLogContainer') secondLogContainer!: ElementRef; 
 
@@ -34,11 +33,11 @@ export class BackEndRasaControlComponent implements OnInit, OnDestroy {
     this.rasaServerState = 'starting'; 
     this.rasaService.startRasa().subscribe(
       (response) => {
-        this.rasaLogs += `Rasa starting: ${response.message}\n`;
+        this.parsedRasaLogs.push({ timestamp: new Date(), log_level: 'info', message: `Rasa starting: ${response.message}` });
         this.checkRasaStatus(); 
       },
       (error) => {
-        this.rasaLogs += `Error starting Rasa: ${error.message}\n`;
+        this.parsedRasaLogs.push({ timestamp: new Date(), log_level: 'error', message: `Error starting Rasa: ${error.message}` });
         this.rasaServerState = 'idle'; 
       }
     );
@@ -49,91 +48,89 @@ export class BackEndRasaControlComponent implements OnInit, OnDestroy {
 
     this.rasaService.stopRasa().subscribe(
       (response) => {
-        this.rasaLogs += `Rasa stopped: ${response.message}\n`;
+        this.parsedRasaLogs.push({ timestamp: new Date(), log_level: 'info', message: `Rasa stopped: ${response.message}` });
         this.rasaServerState = 'idle'; 
         this.checkRasaStatus(); 
       },
       (error) => {
-        this.rasaLogs += `Error stopping Rasa: ${error.message}\n`;
+        this.parsedRasaLogs.push({ timestamp: new Date(), log_level: 'error', message: `Error stopping Rasa: ${error.message}` });
       }
     );
   }
 
-  restartRasa() {
+  async restartRasa() {
     if (this.rasaServerState === 'running' || this.rasaServerState === 'starting') {
-        this.stopRasa();
-        setTimeout(() => this.restartRasa(), 1000); 
+      this.stopRasa();
+      setTimeout(() => this.restartRasa(), 2000); // Delay to allow the server to stop before restarting
     } else {
-        this.rasaService.restartRasa().subscribe(
-            response => {
-                console.log('Rasa server restarted successfully:', response);
-            },
-            error => {
-                console.error('Error restarting Rasa:', error);
-            }
-        ); 
+      try {
+        const response = await this.rasaService.restartRasa().toPromise();
+        this.parsedRasaLogs.push({ timestamp: new Date(), log_level: 'info', message: 'Rasa server restarted successfully' });
+        this.checkRasaStatus(); 
+      } catch (error) {
+        this.parsedRasaLogs.push({ timestamp: new Date(), log_level: 'error', message: `Error restarting Rasa: ${error}` });
+      }
     }
   }
 
   fetchRasaLogs() {
     this.rasaService.getTodayLogs().subscribe(
       (response: string) => {
-        this.rasaLogs = response; // Update logs
-        this.parseLogs(response); // Parse and structure logs
-        this.scrollToBottom(this.rasaLogContainer); // Scroll to the bottom for Rasa logs
-        this.checkRasaStatus(); // Check the status after fetching logs
+        this.parseLogs(response); 
+        this.scrollToBottom(this.rasaLogContainer);
+        this.checkRasaStatus(); 
       },
       (error) => {
         console.error('Error fetching Rasa logs:', error);
-        this.rasaLogs = `Error fetching Rasa logs: ${error.message || 'Unknown error'}`;
+        this.parsedRasaLogs.push({ timestamp: new Date(), log_level: 'error', message: `Error fetching Rasa logs: ${error.message || 'Unknown error'}` });
       }
     );
   }
-  
+
   fetchSecondLogs() {
     this.rasaService.getGeneralLogs().subscribe(
       (response: string) => {
-        this.secondLogs = response; // Update second logs
-        this.scrollToBottom(this.secondLogContainer); // Scroll to the bottom for second logs
+        this.secondLogs = this.parseLogs(response); 
+        this.scrollToBottom(this.secondLogContainer);
       },
       (error) => {
         console.error('Error fetching second logs:', error);
-        this.secondLogs = `Error fetching second logs: ${error.message || 'Unknown error'}`;
+        this.secondLogs = [{ timestamp: new Date(), log_level: 'error', message: `Error fetching second logs: ${error.message || 'Unknown error'}` }];
       }
     );
   }
-  
-  private parseLogs(rawLogs: string) {
+
+  parseLogs(rawLogs: string) {
     try {
-      // Assuming the raw logs are JSON strings
       const logs = JSON.parse(rawLogs);
-      this.parsedRasaLogs = logs.map((log: any) => ({
+      return logs.map((log: any) => ({
         ...log,
-        message: this.removeEscapeCharacters(log.message),
-        timestamp: new Date(log.timestamp)
+        timestamp: new Date(log.timestamp),
+        message: this.removeEscapeCharacters(log.message)
       }));
     } catch (error) {
       console.error('Error parsing logs:', error);
+      return [];
     }
   }
 
-  private removeEscapeCharacters(str: string): string {
+  removeEscapeCharacters(str: string): string {
     return str.replace(/\u001b\[[0-9;]*m/g, '');  // Remove escape characters like colors
   }
 
-  private scrollToBottom(container: ElementRef) {
+  scrollToBottom(container: ElementRef) {
     if (container) {
       setTimeout(() => {
-        container.nativeElement.scrollTop = container.nativeElement.scrollHeight; // Scroll to the bottom
-      }, 100); // Timeout to ensure DOM updates before scrolling
+        container.nativeElement.scrollTop = container.nativeElement.scrollHeight;
+      }, 100);
     }
-  }  
+  }
 
   private checkRasaStatus() {
     this.rasaService.getStatus().subscribe(
       (status: RasaStatusResponse) => {
         this.rasaServerState = status.running ? 'running' : 'stopped'; 
-        this.rasaLogs += `Rasa server state checked: ${this.rasaServerState}\n`;
+        this.parsedRasaLogs.push({ timestamp: new Date(), log_level: 'info', message: `Rasa server state checked: ${this.rasaServerState}` });
       },
       (error) => {
         console.error('Error checking Rasa status:', error);

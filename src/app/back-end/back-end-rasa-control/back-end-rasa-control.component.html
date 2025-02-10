@@ -16,7 +16,7 @@
                     'text-success': rasaServerState === 'running', 
                     'text-warning': rasaServerState === 'starting', 
                     'text-danger': rasaServerState === 'stopped',
-                    'text-secondary': rasaServerState === 'idle'
+                    'text-muted': rasaServerState === 'idle'
                  }">
                 Rasa Server is {{ rasaServerState === 'starting' ? 'Starting...' : (rasaServerState === 'running' ? 'Running' : (rasaServerState === 'idle' ? 'Idle' : 'Stopped')) }}
               </p>
@@ -35,27 +35,40 @@
 
         <div class="terminal-area mt-4 d-flex flex-column mx-auto" style="max-width: 1620px;">
           <!-- Rasa Logs -->
-          <div class="log-terminal card mb-4">
+          <div class="log-terminal card">
             <h3 class="card-header">Rasa Logs</h3>
             <div class="card-body" #rasaLogContainer style="overflow-y: auto; max-height: 300px;">
-              <div *ngFor="let log of parsedRasaLogs" [ngClass]="{
-                  'text-success': log.log_level === 'info',
-                  'text-warning': log.log_level === 'warning',
-                  'text-danger': log.log_level === 'error',
-                  'text-muted': log.log_level === 'debug'
-              }">
-                <span>{{ log.timestamp | date:'short' }} - </span>
-                <strong>{{ log.log_level | titlecase }}: </strong>
-                <span [innerHTML]="log.message"></span>
-              </div>
+              <pre style="white-space: pre-wrap;">
+                <div *ngFor="let log of parsedRasaLogs">
+                  <span [ngClass]="{
+                    'text-success': log.log_level === 'info', 
+                    'text-warning': log.log_level === 'warning', 
+                    'text-danger': log.log_level === 'error',
+                    'text-muted': log.log_level === 'debug'
+                  }">
+                    {{ log.timestamp | date:'short' }} - {{ log.log_level | titlecase }}: {{ log.message }}
+                  </span>
+                </div>
+              </pre>
             </div>
           </div>
-        
+
           <!-- Second Logs -->
           <div class="log-terminal card">
             <h3 class="card-header">Second Logs</h3>
             <div class="card-body" #secondLogContainer style="overflow-y: auto; max-height: 300px;">
-              <pre style="white-space: pre-wrap;">{{ secondLogs }}</pre>
+              <pre style="white-space: pre-wrap;">
+                <div *ngFor="let log of secondLogs">
+                  <span [ngClass]="{
+                    'text-success': log.log_level === 'info', 
+                    'text-warning': log.log_level === 'warning', 
+                    'text-danger': log.log_level === 'error',
+                    'text-muted': log.log_level === 'debug'
+                  }">
+                    {{ log.timestamp | date:'short' }} - {{ log.log_level | titlecase }}: {{ log.message }}
+                  </span>
+                </div>
+              </pre>
             </div>
           </div>    
         </div>        

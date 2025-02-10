@@ -1,54 +1,28 @@
-.card-body {
-  display: flex;
-  flex-direction: column;
-}
-
-.terminal-area {
-  width: 100%; /* Full width of the container */
-  display: flex; /* Use flexbox for layout */
-  flex-direction: column; /* Column layout */
-  overflow-x: auto; /* Allow horizontal scrolling for overflow */
-}
-
 .log-terminal {
   background-color: #1e1e1e; /* Dark background */
-  color: #f8f8f2; /* Light text color */
-  padding: 15px; /* Padding for spacing */
-  border-radius: 5px; /* Rounded corners */
-  overflow-y: auto; /* Allow vertical scrolling for overflow */
-  flex-grow: 1; /* Allow this section to grow */
-  max-height: 300px; /* Set a maximum height for the log terminal */
+  color: #f8f8f2; /* White text color */
+  padding: 15px;
+  border-radius: 5px;
+  overflow-y: auto; /* Allow vertical scrolling */
+  flex-grow: 1;
+  max-height: 300px; /* Set a max height for the log area */
   white-space: pre-wrap; /* Wrap text and respect whitespace */
-  min-width: 100%; /* Ensure it takes full width */
+  min-width: 100%;
+  font-family: monospace; /* Make text look like code */
 }
 
 .text-success {
-  color: #28a745; /* Green for info */
+  color: #28a745; /* Green for 'success' messages */
 }
 
 .text-warning {
-  color: #ffc107; /* Yellow for warning */
+  color: #ffc107; /* Yellow for 'warning' messages */
 }
 
 .text-danger {
-  color: #dc3545; /* Red for error */
+  color: #dc3545; /* Red for 'error' messages */
 }
 
 .text-muted {
-  color: #6c757d; /* Grey for debug */
-}
-
-.card-body {
-  background-color: #f8f9fa; /* Light background */
-  padding: 10px;
-}
-
-.card-header {
-  background-color: #007bff;
-  color: #fff;
-}
-
-.spinner-border {
-  margin: 10px;
-  display: inline-block;
+  color: #6c757d; /* Grey for 'debug' messages */
 }
