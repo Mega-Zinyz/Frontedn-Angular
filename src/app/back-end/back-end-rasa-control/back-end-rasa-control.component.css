@@ -17,7 +17,7 @@
   border-radius: 5px; /* Rounded corners */
   overflow-y: auto; /* Allow vertical scrolling for overflow */
   flex-grow: 1; /* Allow this section to grow */
-  max-height: 300px; /* Set a maximum height for the log terminal */
+  max-height: 100px; /* Set a maximum height for the log terminal */
   white-space: pre-wrap; /* Wrap text and respect whitespace */
   min-width: 100%; /* Ensure it takes full width */
 }
