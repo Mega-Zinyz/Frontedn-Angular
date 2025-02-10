@@ -37,7 +37,7 @@
           <!-- Rasa Logs -->
           <div class="log-terminal card">
             <h3 class="card-header">Rasa Logs</h3>
-            <div class="card-body" #rasaLogContainer style="overflow-y: auto; max-height: 100px;">
+            <div class="card-body" #rasaLogContainer style="overflow-y: auto; max-height: 300px;">
               <pre style="white-space: pre-wrap;">
                 <div *ngFor="let log of parsedRasaLogs">
                   <span [ngClass]="{
@@ -56,7 +56,7 @@
           <!-- Second Logs -->
           <div class="log-terminal card">
             <h3 class="card-header">Second Logs</h3>
-            <div class="card-body" #secondLogContainer style="overflow-y: auto; max-height: 100x;">
+            <div class="card-body" #secondLogContainer style="overflow-y: auto; max-height: 300px;">
               <pre style="white-space: pre-wrap;">
                 <div *ngFor="let log of secondLogs">
                   <span [ngClass]="{
