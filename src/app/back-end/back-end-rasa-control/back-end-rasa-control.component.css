@@ -7,7 +7,6 @@
   flex-grow: 1;
   max-height: 300px; /* Set a max height for the log area */
   white-space: pre-wrap; /* Wrap text and respect whitespace */
-  min-width: 100%;
   font-family: monospace; /* Make text look like code */
 }
 
@@ -25,4 +24,33 @@
 
 .text-muted {
   color: #6c757d; /* Grey for 'debug' messages */
+}
+
+.terminal-area {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.card {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+  background-color: #343a40;
+  color: #fff;
+  padding: 10px;
+}
+
+.card-body {
+  background-color: #212529;
+  color: #f8f8f2;
+  padding: 15px;
+}
+
+.w-48 {
+  width: 48%;
 }
