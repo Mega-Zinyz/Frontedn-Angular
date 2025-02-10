@@ -1,46 +1,25 @@
-/* General Layout */
-.d-flex.align-items-center {
-  align-items: center; /* Vertically align text and buttons */
-}
-
-.card-text {
-  margin-bottom: 0; /* Remove bottom margin to align text properly */
-}
-
 .card-body {
   display: flex;
-  justify-content: space-between; /* Distribute space between elements */
-  align-items: center; /* Vertically align the items */
-  padding: 1.25rem; /* Adjust padding for better spacing */
+  flex-direction: column;
 }
 
-.card-body p {
-  margin-right: 20px; /* Space between text and buttons */
+.terminal-area {
+  width: 100%; /* Full width of the container */
+  display: flex; /* Use flexbox for layout */
+  flex-direction: column; /* Column layout */
+  overflow-x: auto; /* Allow horizontal scrolling for overflow */
 }
 
-.card-body .btn-group {
-  display: flex;
-  gap: 10px; /* Space between buttons */
-}
-
-.spinner-border {
-  margin-left: 10px; /* Space between spinner and button */
-}
-
-/* Log Terminal Styling */
 .log-terminal {
-  background-color: #000000; /* Black background */
-  color: #f8f8f2; /* White text color */
-  padding: 12px; /* Reduce padding to make logs more compact */
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow effect */
-  overflow-y: auto; /* Allow vertical scrolling */
-  flex-grow: 1;
-  max-height: 300px; /* Set a max height for the log area */
+  background-color: #1e1e1e; /* Dark background */
+  color: #f8f8f2; /* Light text color */
+  padding: 15px; /* Padding for spacing */
+  border-radius: 5px; /* Rounded corners */
+  overflow-y: auto; /* Allow vertical scrolling for overflow */
+  flex-grow: 1; /* Allow this section to grow */
+  max-height: 300px; /* Set a maximum height for the log terminal */
   white-space: pre-wrap; /* Wrap text and respect whitespace */
-  min-width: 100%;
-  font-family: 'Courier New', monospace; /* Monospace font for logs */
-  margin-bottom: 15px; /* Space between log blocks */
+  min-width: 100%; /* Ensure it takes full width */
 }
 
 .text-success {
@@ -57,52 +36,4 @@
 
 .text-muted {
   color: #6c757d; /* Grey for 'debug' messages */
-}
-
-.card-body pre {
-  margin: 0;
-  padding: 0;
-  font-size: 0.9rem; /* Smaller font size for better fitting */
-}
-
-.card-title {
-  font-size: 1.25rem;
-  font-weight: bold;
-  color: #333;
-}
-
-.card-header {
-  background-color: #343a40;
-  color: #fff;
-  font-weight: bold;
-  text-transform: uppercase;
-  padding: 10px;
-}
-
-.card {
-  border-radius: 8px;
-  background-color: #f8f9fa; /* Light background for the card */
-  margin-bottom: 20px;
-  border: 1px solid #e0e0e0;
-}
-
-/* Button Styling */
-button {
-  transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth hover transition */
-}
-
-button:hover {
-  transform: translateY(-2px); /* Lift the button on hover */
-}
-
-button:disabled {
-  opacity: 0.6;
-}
-
-.spinner-border {
-  border-top-color: #28a745; /* Green spinner */
-}
-
-.card-body {
-  padding: 20px;
 }
