@@ -7,72 +7,96 @@
 
       <div class="rasa-control p-4">
         <h2 class="mb-4">Rasa Server Control</h2>
+        
+        <!-- Server Status -->
         <div class="card">
           <div class="card-body">
             <h5 class="card-title">Server Status</h5>
             <div class="d-flex justify-content-between align-items-center mb-3">
-              <p class="card-text" 
+              <p class="card-text fw-bold"
                  [ngClass]="{
                     'text-success': rasaServerState === 'running', 
                     'text-warning': rasaServerState === 'starting', 
                     'text-danger': rasaServerState === 'stopped',
                     'text-muted': rasaServerState === 'idle'
                  }">
-                Rasa Server is {{ rasaServerState === 'starting' ? 'Starting...' : (rasaServerState === 'running' ? 'Running' : (rasaServerState === 'idle' ? 'Idle' : 'Stopped')) }}
+                Rasa Server is 
+                <span *ngIf="rasaServerState === 'starting'">Starting...</span>
+                <span *ngIf="rasaServerState === 'running'">Running</span>
+                <span *ngIf="rasaServerState === 'idle'">Idle</span>
+                <span *ngIf="rasaServerState === 'stopped'">Stopped</span>
               </p>
               <div class="btn-group">
-                <button class="btn btn-success me-2" (click)="startRasa()" [disabled]="rasaServerState === 'starting' || rasaServerState === 'running'">Start Rasa</button>
-                <button class="btn btn-danger me-2" (click)="stopRasa()" [disabled]="rasaServerState === 'stopped'">Stop Rasa</button>
-                <button class="btn btn-warning" (click)="restartRasa()" [disabled]="rasaServerState !== 'running'">Restart Rasa</button>
+                <button class="btn btn-success me-2" 
+                        (click)="startRasa()" 
+                        [disabled]="rasaServerState === 'starting' || rasaServerState === 'running'">
+                  Start Rasa
+                </button>
+                <button class="btn btn-danger me-2" 
+                        (click)="stopRasa()" 
+                        [disabled]="rasaServerState === 'stopped'">
+                  Stop Rasa
+                </button>
+                <button class="btn btn-warning" 
+                        (click)="restartRasa()" 
+                        [disabled]="rasaServerState !== 'running'">
+                  Restart Rasa
+                </button>
               </div>
             </div>
-            <!-- Optional loading spinner -->
+
+            <!-- Loading Spinner -->
             <div *ngIf="rasaServerState === 'starting'" class="spinner-border" role="status">
               <span class="visually-hidden">Loading...</span>
             </div>
           </div>
         </div>
 
-        <div class="terminal-area mt-1 d-flex flex-column mx-auto" style="max-width: 1620px;">
+        <!-- Terminal Log Area -->
+        <div class="terminal-area mt-3 d-flex flex-column mx-auto" style="max-width: 1600px;">
+          
           <!-- Rasa Logs -->
           <div class="log-terminal card">
-            <h3 class="card-header">Rasa Logs</h3>
-            <div class="card-body" #rasaLogContainer style="overflow-y: auto; max-height: 300px;">
-              <pre style="white-space: pre-wrap;">
-                <div *ngFor="let log of parsedRasaLogs">
+            <h5 class="card-header">Rasa Logs</h5>
+            <div class="card-body" #rasaLogContainer>
+              <pre>
+                <div *ngFor="let log of parsedRasaLogs" class="log-entry">
+                  <span class="log-timestamp">[{{ log.timestamp | date:'yyyy-MM-dd HH:mm:ss' }}]</span>
                   <span [ngClass]="{
                     'text-success': log.log_level === 'info', 
                     'text-warning': log.log_level === 'warning', 
                     'text-danger': log.log_level === 'error',
                     'text-muted': log.log_level === 'debug'
-                  }">
-                    {{ log.timestamp | date:'short' }} - {{ log.log_level | titlecase }}: {{ log.message }}
-                  </span>
+                  }">[{{ log.log_level | uppercase }}]</span>
+                  <span> {{ log.message }}</span>
                 </div>
               </pre>
             </div>
           </div>
 
           <!-- Second Logs -->
-          <div class="log-terminal card">
-            <h3 class="card-header">Second Logs</h3>
-            <div class="card-body" #secondLogContainer style="overflow-y: auto; max-height: 300px;">
-              <pre style="white-space: pre-wrap;">
-                <div *ngFor="let log of secondLogs">
+          <div class="log-terminal card mt-3">
+            <h5 class="card-header">Second Logs</h5>
+            <div class="card-body" #secondLogContainer>
+              <pre>
+                <div *ngFor="let log of secondLogs" class="log-entry">
+                  <span class="log-timestamp">[{{ log.timestamp | date:'yyyy-MM-dd HH:mm:ss' }}]</span>
                   <span [ngClass]="{
                     'text-success': log.log_level === 'info', 
                     'text-warning': log.log_level === 'warning', 
                     'text-danger': log.log_level === 'error',
                     'text-muted': log.log_level === 'debug'
-                  }">
-                    {{ log.timestamp | date:'short' }} - {{ log.log_level | titlecase }}: {{ log.message }}
-                  </span>
+                  }">[{{ log.log_level | uppercase }}]</span>
+                  <span> {{ log.message }}</span>
                 </div>
               </pre>
             </div>
-          </div>    
-        </div>        
-      </div>
+          </div>  
+
+        </div> <!-- End Terminal Area -->
+
+      </div> <!-- End Rasa Control -->
+      
       <app-back-end-footer></app-back-end-footer>
     </div>
   </div>

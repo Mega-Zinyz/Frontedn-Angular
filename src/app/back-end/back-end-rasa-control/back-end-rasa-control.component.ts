@@ -132,7 +132,7 @@ export class BackEndRasaControlComponent implements OnInit, OnDestroy {
       console.error('Error parsing logs:', error);
       return [];
     }
-  }
+  }  
   
   removeEscapeCharacters(str: string): string {
     return str.replace(/\u001b\[[0-9;]*m/g, '');  // Remove escape characters like colors

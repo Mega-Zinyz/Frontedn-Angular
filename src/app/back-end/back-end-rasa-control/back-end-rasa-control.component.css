@@ -4,36 +4,52 @@
 }
 
 .terminal-area {
-  width: 100%; /* Full width of the container */
-  display: flex; /* Use flexbox for layout */
-  flex-direction: column; /* Column layout */
-  overflow-x: auto; /* Allow horizontal scrolling for overflow */
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-x: auto;
 }
 
 .log-terminal {
-  background-color: #1e1e1e; /* Dark background */
-  color: #f8f8f2; /* Light text color */
-  padding: 15px; /* Padding for spacing */
-  border-radius: 5px; /* Rounded corners */
-  overflow-y: auto; /* Allow vertical scrolling for overflow */
-  flex-grow: 1; /* Allow this section to grow */
-  max-height: 300px; /* Set a maximum height for the log terminal */
-  white-space: pre-wrap; /* Wrap text and respect whitespace */
-  min-width: 100%; /* Ensure it takes full width */
+  background-color: #000; /* Hitam khas terminal */
+  color: #f8f8f8;
+  padding: 15px;
+  border-radius: 5px;
+  overflow-y: auto;
+  flex-grow: 1;
+  max-height: 350px; /* Lebih tinggi untuk melihat lebih banyak log */
+  font-family: monospace; /* Tampilan khas log */
+  font-size: 14px;
+  line-height: 1.4;
+  white-space: pre-wrap;
+  border: 1px solid #444;
+  min-width: 100%;
+}
+
+.log-entry {
+  display: flex;
+  align-items: center;
+  padding: 2px 0;
+}
+
+.log-timestamp {
+  color: #bbb;
+  margin-right: 10px;
+  font-weight: bold;
 }
 
 .text-success {
-  color: #28a745; /* Green for info */
+  color: #4caf50; /* Hijau khas log info */
 }
 
 .text-warning {
-  color: #ffc107; /* Yellow for warning */
+  color: #ff9800; /* Oranye khas log warning */
 }
 
 .text-danger {
-  color: #dc3545; /* Red for error */
+  color: #f44336; /* Merah khas log error */
 }
 
 .text-muted {
-  color: #6c757d; /* Grey for debug */
+  color: #9e9e9e; /* Abu-abu untuk debug */
 }
