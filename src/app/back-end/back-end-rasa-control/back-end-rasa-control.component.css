@@ -23,17 +23,32 @@
 }
 
 .text-success {
-  color: #28a745; /* Green for 'success' messages */
+  color: #28a745; /* Green for info */
 }
 
 .text-warning {
-  color: #ffc107; /* Yellow for 'warning' messages */
+  color: #ffc107; /* Yellow for warning */
 }
 
 .text-danger {
-  color: #dc3545; /* Red for 'error' messages */
+  color: #dc3545; /* Red for error */
 }
 
 .text-muted {
-  color: #6c757d; /* Grey for 'debug' messages */
+  color: #6c757d; /* Grey for debug */
+}
+
+.card-body {
+  background-color: #f8f9fa; /* Light background */
+  padding: 10px;
+}
+
+.card-header {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.spinner-border {
+  margin: 10px;
+  display: inline-block;
 }
